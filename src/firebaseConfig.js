@@ -1,4 +1,4 @@
-import { getDatabase, ref, set } from "firebase/database"
+import { getDatabase } from "firebase/database"
 import { initializeApp } from "firebase/app"
 
 const firebaseConfig = {
@@ -8,6 +8,8 @@ const firebaseConfig = {
   storageBucket: "learnlingo-6df12.firebasestorage.app",
   messagingSenderId: "515029356688",
   appId: "1:515029356688:web:fbebc70cddb848edc5c815",
+  databaseURL:
+    "https://learnlingo-6df12-default-rtdb.europe-west1.firebasedatabase.app/",
 }
 
 const app = initializeApp(firebaseConfig)

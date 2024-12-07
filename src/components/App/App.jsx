@@ -1,9 +1,10 @@
 import processTeachers from "../../utils/processTeachers.js"
+import { writeTeachersData } from "../../utils/firebaseDatabase.js"
 
 export default function App() {
-  const processedData = processTeachers()
-  console.log(processedData)
+  const teachers = processTeachers()
 
+  writeTeachersData(teachers)
   return (
     <div>
       <h1>Welcome to My Language App</h1>
