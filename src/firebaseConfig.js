@@ -1,9 +1,6 @@
-// Import the functions you need from the SDKs you need
+import { getDatabase, ref, set } from "firebase/database"
 import { initializeApp } from "firebase/app"
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
 
-// Your web app's Firebase configuration
 const firebaseConfig = {
   apiKey: "AIzaSyC3Tj9KoWvIyt63HLqWpcNKZG5PT3-k8VA",
   authDomain: "learnlingo-6df12.firebaseapp.com",
@@ -13,7 +10,8 @@ const firebaseConfig = {
   appId: "1:515029356688:web:fbebc70cddb848edc5c815",
 }
 
-// Initialize Firebase
 const app = initializeApp(firebaseConfig)
 
-export default app
+const db = getDatabase(app)
+
+export default db
