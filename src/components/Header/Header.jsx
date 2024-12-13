@@ -4,7 +4,7 @@ import css from "./Header.module.css"
 
 export default function Header() {
   return (
-    <header>
+    <header className={css.header}>
       <div className={css.headerContainer}>
         <div className={css.headerWrapper}>
           <div className={css.navLoginWrapper}>

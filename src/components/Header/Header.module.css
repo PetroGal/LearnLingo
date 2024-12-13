@@ -1,12 +1,13 @@
 .header {
   background: #fff;
+  margin-bottom: 20px;
+  padding-top: 20px;
 }
 
 .headerContainer {
   max-width: 1184px;
   height: 48px;
   margin: 0 auto;
-  padding-top: 20px;
 }
 
 .headerWrapper {
@@ -30,7 +31,6 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-bottom: 20px;
 }
 
 .logoIcon {
