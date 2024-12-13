@@ -1,0 +1,45 @@
+.homePageSection {
+}
+
+.homePageContainer {
+  max-width: 1440px;
+  padding-left: 64px;
+  padding-right: 64px;
+  height: 48px;
+  margin: 0 auto;
+}
+
+.heroWrapper {
+  display: flex;
+  border: solid 2px red;
+}
+
+.homeHeading {
+  display: flex;
+  border: solid 2px blue;
+}
+
+.homeImage {
+  display: flex;
+}
+
+.imageWrapper {
+  border: solid 2px orange;
+}
+
+@media screen and (min-device-pixel-ratio: 2),
+  (min-resolution: 2dppx),
+  (min-resolution: 192dpi) {
+  .hero-container {
+    background-image: linear-gradient(
+        rgba(17, 17, 17, 0) 0%,
+        rgba(17, 17, 17, 0.4)
+      ),
+      url(../../images/mainImage2x.jpg);
+  }
+}
+
+.heroImage {
+  width: 568px;
+  height: 530px;
+}
