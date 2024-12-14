@@ -15,7 +15,7 @@ export default function Header() {
               LearnLingo
             </NavLink>
             <div className={css.navWrapper}>
-              <NavLink to='/home' className={css.homeLink}>
+              <NavLink to='/' className={css.homeLink}>
                 Home
               </NavLink>
               <NavLink to='/teachers' className={css.teachersLink}>

@@ -5,7 +5,6 @@ import css from "./HomePage.module.css"
 export default function HomePage() {
   return (
     <div>
-      <Header />
       <main>
         <section className={css.homePageSection}>
           <div className={css.homePageContainer}>
