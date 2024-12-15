@@ -11,13 +11,18 @@ export default function HomePage() {
             <div className={css.heroWrapper}>
               <div className={css.homeHeading}>
                 <div className={css.headingWrapper}>
-                  <h1>Unlock your potential with the best language tutors</h1>
-                  <p>
+                  <h1 className={css.heroTitle}>
+                    Unlock your potential with the best{" "}
+                    <span className={css.heroSpan}>language</span> tutors
+                  </h1>
+                  <p className={css.heroText}>
                     Embark on an Exciting Language Journey with Expert Language
                     Tutors: Elevate your language proficiency to new heights by
                     connecting with highly qualified and experienced tutors.
                   </p>
-                  <button></button>
+                  <button type='button' className={css.startedBtn}>
+                    Get started
+                  </button>
                 </div>
               </div>
               <div className={css.imageWrapper}>
