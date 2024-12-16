@@ -1,62 +1,4 @@
-import React from "react"
-import Header from "../../components/Header/Header.jsx"
-import css from "./HomePage.module.css"
-
-export default function HomePage() {
-  return (
-    <div>
-      <main>
-        <section className={css.homePageSection}>
-          <div className={css.homePageContainer}>
-            <div className={css.heroWrapper}>
-              <div className={css.headingWrapper}>
-                <h1 className={css.heroTitle}>
-                  Unlock your potential with the best{" "}
-                  <span className={css.heroSpan}>language</span> tutors
-                </h1>
-                <p className={css.heroText}>
-                  Embark on an Exciting Language Journey with Expert Language
-                  Tutors: Elevate your language proficiency to new heights by
-                  connecting with highly qualified and experienced tutors.
-                </p>
-                <button type='button' className={css.startedBtn}>
-                  Get started
-                </button>
-              </div>
-
-              <div className={css.imageWrapper}>
-                <img
-                  className={css.heroImage}
-                  src='/images/headOpt1.svg'
-                  alt='Head Image'
-                />
-                <svg
-                  className={css.mac}
-                  xmlns='http://www.w3.org/2000/svg'
-                  width='361'
-                  height='176'
-                  viewBox='0 0 361 176'
-                  fill='none'
-                >
-                  <path
-                    d='M7.05786 0C3.51331 0 0.640015 2.87903 0.640015 6.43046V240.821C0.640015 244.372 3.51331 247.251 7.05786 247.251H353.942C357.487 247.251 360.36 244.372 360.36 240.821V6.43046C360.36 2.87903 357.487 0 353.942 0H7.05786Z'
-                    fill='url(#paint0_linear_14088_53)'
-                  />
-                  <defs>
-                    <linearGradient
-                      id='paint0_linear_14088_53'
-                      x1='180.5'
-                      y1='0'
-                      x2='180.5'
-                      y2='247.251'
-                      gradientUnits='userSpaceOnUse'
-                    >
-                      <stop stopColor='#295761' />
-                      <stop offset='1' stopColor='#183E49' />
-                    </linearGradient>
-                  </defs>
-                </svg>
-                <svg
+ <svg
                   className={css.apple}
                   xmlns='http://www.w3.org/2000/svg'
                   width='47'
@@ -97,12 +39,3 @@ export default function HomePage() {
                     </linearGradient>
                   </defs>
                 </svg>
-              </div>
-            </div>
-            <div></div>
-          </div>
-        </section>
-      </main>
-    </div>
-  )
-}
