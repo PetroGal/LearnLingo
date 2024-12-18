@@ -99,7 +99,38 @@ export default function HomePage() {
                 </svg>
               </div>
             </div>
-            <div></div>
+            <div className={css.infoWrapper}>
+              <ul className={css.infoList}>
+                <li className={css.infoExperience}>
+                  <p className={css.infoNumbers}>
+                    <span>32,000</span>
+                    <span>+</span>
+                  </p>
+                  <p className={css.infoText}>Experienced tutors</p>
+                </li>
+                <li className={css.infoReviews}>
+                  <p className={css.infoNumbers}>
+                    <span>300,000</span>
+                    <span>+</span>
+                  </p>
+                  <p className={css.infoText}>5-star tutor reviews</p>
+                </li>
+                <li className={css.infoSubjects}>
+                  <p className={css.infoNumbers}>
+                    <span>120</span>
+                    <span>+</span>
+                  </p>
+                  <p className={css.infoText}>Subjects taught</p>
+                </li>
+                <li className={css.infoTutors}>
+                  <p className={css.infoNumbers}>
+                    <span>200</span>
+                    <span>+</span>
+                  </p>
+                  <p className={css.infoText}>Tutor nationalities</p>
+                </li>
+              </ul>
+            </div>
           </div>
         </section>
       </main>
