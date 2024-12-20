@@ -132,7 +132,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 1312px;
+  max-inline-size: 1312px;
   height: 116px;
   padding: 40px 122px 40px 123px;
   border-radius: 30px;
