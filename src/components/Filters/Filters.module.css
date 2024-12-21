@@ -1,0 +1,21 @@
+.filtersList {
+  display: flex;
+  gap: 20px;
+}
+
+.filterItemsWrapper {
+  display: flex;
+  flex-direction: column;
+  width: 221px;
+  height: 48px;
+}
+
+.filterItem {
+  display: flex;
+  flex-direction: column;
+}
+
+.filterLanguage {
+  width: 221px;
+  height: 48px;
+}
