@@ -1,13 +1,15 @@
 .filtersList {
   display: flex;
+  width: 100%;
+  margin-bottom: 32px;
   gap: 20px;
 }
 
 .filterItemsWrapper {
   display: flex;
   flex-direction: column;
-  width: 221px;
-  height: 48px;
+  width: 100%;
+  /* height: 48px; */
 }
 
 .filterItem {
@@ -18,4 +20,85 @@
 .filterLanguage {
   width: 221px;
   height: 48px;
+  display: flex;
+  align-items: center;
+  padding-left: 18px;
+  justify-content: center;
+  color: #121417;
+  font-family: Roboto;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 1.11;
+  position: relative;
+  border: 1px solid #ccc;
+}
+
+.filterLanguage::after {
+  content: "";
+  position: absolute;
+  right: 18px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 20px;
+  height: 20px;
+  background-color: red;
+  background-size: contain;
+}
+
+.filterLevel {
+  width: 198px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-left: 18px;
+  color: #121417;
+  font-family: Roboto;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 1.11;
+  appearance: none;
+  position: relative;
+}
+
+.filterPrice {
+  width: 124px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding-left: 18px;
+  color: #121417;
+  font-family: Roboto;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 1.11;
+  appearance: none;
+  position: relative;
+}
+
+label {
+  color: #8a8a89;
+  font-family: Roboto;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 1.285;
+  margin-bottom: 8px;
+}
+select {
+  height: 48px;
+  border-radius: 14px;
+  background: #fff;
+  width: 100%;
+  height: 100%;
+  border: none;
+  font-family: inherit;
+  font-size: inherit;
+  color: inherit;
+  appearance: none;
 }
