@@ -35,14 +35,15 @@
 }
 
 .filterLanguage::after {
-  content: "";
+  content: "Hello";
   position: absolute;
-  right: 18px;
+  display: block;
+  /* right: 18px;
   top: 50%;
-  transform: translateY(-50%);
+  transform: translateY(-50%); */
   width: 20px;
   height: 20px;
-  background-color: red;
+  background: url("/icons.svg#icon-logIn_opt");
   background-size: contain;
 }
 

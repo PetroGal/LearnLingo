@@ -18,6 +18,9 @@ export default function Filters() {
               <option value='Ukrainian'>Ukrainian</option>
               <option value='Polish'>Polish</option>
             </select>
+            {/* <svg className={css.loginIcon} width='20px' height='20px'>
+              <use href='/icons.svg#icon-logIn_opt'></use>
+            </svg> */}
           </div>
         </li>
         <li className={css.filterItem}>

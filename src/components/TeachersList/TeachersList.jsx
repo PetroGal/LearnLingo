@@ -1,3 +1,11 @@
+import TeacherCard from "../TeacherCard/TeacherCard.jsx"
+
 export default function TeachersList() {
-  return <div>This is TeachersList component</div>
+  return (
+    <div>
+      <TeacherCard />
+      <TeacherCard />
+      <TeacherCard />
+    </div>
+  )
 }
