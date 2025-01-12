@@ -1,0 +1,54 @@
+.cardWrapper {
+  display: flex;
+}
+
+.avatarWrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 120px;
+  height: 120px;
+  margin-right: 48px;
+  flex-shrink: 0;
+  border-radius: 100px;
+  border: 3px solid #fbe9ba;
+  background: #fff;
+}
+
+.avatarImg {
+  width: 96px;
+  height: 96px;
+  flex-shrink: 0;
+  border-radius: 100px;
+  background: url(<path-to-image>) lightgray 50% / cover no-repeat;
+}
+
+.teachersDetailsWrapper {
+  display: flex;
+  flex-direction: column;
+}
+
+.teacherRates {
+  display: flex;
+}
+
+.teachersInfo {
+  display: flex;
+  flex-direction: column;
+}
+
+.readMoreBtn {
+  color: #121417;
+  font-family: Roboto;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 24px; /* 150% */
+  text-decoration-line: underline;
+  text-decoration-style: solid;
+  text-decoration-skip-ink: none;
+  text-decoration-thickness: auto;
+  text-underline-offset: auto;
+  text-underline-position: from-font;
+  border: none;
+}
