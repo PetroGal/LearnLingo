@@ -32,6 +32,39 @@
   display: flex;
 }
 
+.teacherRatesItem {
+  display: flex;
+}
+
+.teacherRatesItem::after {
+  content: " ";
+  display: block;
+  margin-left: 16px;
+  margin-right: 16px;
+  width: 1px; /* Adjust based on your design */
+  height: 16px;
+  stroke-width: 1px;
+  background-color: rgba(18, 20, 23, 0.2);
+}
+
+.price {
+  color: #121417;
+  font-family: Roboto;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 24px; /* 150% */
+}
+
+.pricePerHour {
+  color: #38cd3e;
+  font-family: Roboto;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 24px;
+}
+
 .teachersInfo {
   display: flex;
   flex-direction: column;

@@ -73,11 +73,21 @@ export default function TeacherCard({ teachers }) {
           </div>
           <div className={css.teachersDetailsWrapper}>
             <div className={css.teacherRates}>
-              <p>Languages</p>
+              <p className={css.teacherRatesItem}>Languages</p>
               <p>Lessons online</p>
-              <p>Lessons done: {teachers[0].lessons_done}</p>
-              <p> Rating: {teachers[0].rating}</p>
-              <p>Price / 1 hour: {teachers[0].price_per_hour} $</p>
+              <p className={css.teacherRatesItem}>
+                Lessons done: {teachers[0].lessons_done}
+              </p>
+              <p className={css.teacherRatesItem}>
+                {" "}
+                Rating: {teachers[0].rating}
+              </p>
+              <p className={css.price}>
+                Price / 1 hour:{" "}
+                <span className={css.pricePerHour}>
+                  {teachers[0].price_per_hour}$
+                </span>
+              </p>
             </div>
 
             <div className={css.teachersInfo}>
