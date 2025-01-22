@@ -113,12 +113,23 @@ export default function TeacherCard({ teachers }) {
             </div>
           </div>
 
-          <div className={css.teachersInfo}>
-            <p>Speaks: {teachers[0].languages.join(", ")}</p>
-            <p>Lesson info: {teachers[0].lesson_info}</p>
-            <p>Conditions: {teachers[0].conditions}</p>
+          <ul className={css.teachersInfo}>
+            <li>
+              <span className={css.infoTitle}>Speaks:</span>{" "}
+              <span className={css.speaksLanguagesText}>
+                {teachers[0].languages.join(", ")}
+              </span>
+            </li>
+            <li>
+              <span className={css.infoTitle}>Lesson info:</span>{" "}
+              <span className={css.infoText}>{teachers[0].lesson_info}</span>
+            </li>
+            <li>
+              <span className={css.infoTitle}>Conditions:</span>{" "}
+              <span className={css.infoText}>{teachers[0].conditions}</span>
+            </li>
             <button className={css.readMoreBtn}>Read More</button>
-          </div>
+          </ul>
         </div>
         <p></p>
         <p></p>
