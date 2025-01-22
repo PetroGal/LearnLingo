@@ -62,7 +62,7 @@ import css from "./TeacherCard.module.css"
 export default function TeacherCard({ teachers }) {
   return (
     <>
-      <div>
+      <div className={css.cardContainer}>
         <div className={css.cardWrapper}>
           <div className={css.avatarWrapper}>
             <img
@@ -73,11 +73,18 @@ export default function TeacherCard({ teachers }) {
           </div>
           <div className={css.teachersDetailsWrapper}>
             <div className={css.teacherRates}>
-              <p className={css.teacherRatesItem}>Languages</p>
-              <p>Lessons online</p>
+              <p className={css.teacherLanguagesItem}>Languages</p>
+              <svg className={css.bookIcon} width='16' height='16'>
+                <use href='/icons.svg#icon-bookOpenOpt'></use>
+              </svg>
+              <p className={css.teacherRatesItem}>Lessons online</p>
               <p className={css.teacherRatesItem}>
                 Lessons done: {teachers[0].lessons_done}
               </p>
+              <p className={css.teacherRatesItem}>Lessons online</p>
+              <svg className={css.starIcon} width='16' height='16'>
+                <use href='/icons.svg#icon-star'></use>
+              </svg>
               <p className={css.teacherRatesItem}>
                 {" "}
                 Rating: {teachers[0].rating}
@@ -88,6 +95,9 @@ export default function TeacherCard({ teachers }) {
                   {teachers[0].price_per_hour}$
                 </span>
               </p>
+              <svg className={css.heartIcon} width='16' height='16'>
+                <use href='/icons.svg#icon-heartOpt'></use>
+              </svg>
             </div>
 
             <div className={css.teachersInfo}>
