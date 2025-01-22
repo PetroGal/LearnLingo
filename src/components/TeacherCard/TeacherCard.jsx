@@ -63,58 +63,67 @@ export default function TeacherCard({ teachers }) {
   return (
     <>
       <div className={css.cardContainer}>
-        <div className={css.cardWrapper}>
-          <div className={css.avatarWrapper}>
-            <img
-              src={teachers[0].avatar_url}
-              className={css.avatarImg}
-              alt={teachers[0].name}
-            />
-          </div>
-          <div className={css.teachersDetailsWrapper}>
-            <div className={css.teacherRates}>
+        <div className={css.avatarWrapper}>
+          <img
+            src={teachers[0].avatar_url}
+            className={css.avatarImg}
+            alt={teachers[0].name}
+          />
+        </div>
+
+        <div className={css.teachersDetailsWrapper}>
+          <div className={css.teacherRates}>
+            <div className={css.languagesName}>
               <p className={css.teacherLanguagesItem}>Languages</p>
-              <svg className={css.bookIcon} width='16' height='16'>
-                <use href='/icons.svg#icon-bookOpenOpt'></use>
-              </svg>
-              <p className={css.teacherRatesItem}>Lessons online</p>
+              <h3 className={css.teacherName}>
+                {teachers[0].name} {teachers[0].surname}
+              </h3>
+            </div>
+
+            <div className={css.rates}>
+              <div className={css.onlineBlock}>
+                <svg className={css.bookIcon} width='16' height='16'>
+                  <use href='/icons.svg#icon-bookOpenOpt'></use>
+                </svg>
+                <p className={css.teacherRatesItem}>Lessons online</p>
+              </div>
+
               <p className={css.teacherRatesItem}>
                 Lessons done: {teachers[0].lessons_done}
               </p>
-              <p className={css.teacherRatesItem}>Lessons online</p>
-              <svg className={css.starIcon} width='16' height='16'>
-                <use href='/icons.svg#icon-star'></use>
-              </svg>
-              <p className={css.teacherRatesItem}>
-                {" "}
-                Rating: {teachers[0].rating}
-              </p>
-              <p className={css.price}>
-                Price / 1 hour:{" "}
+
+              <div className={css.ratingBlock}>
+                <svg className={css.starIcon} width='16' height='16'>
+                  <use href='/icons.svg#icon-star'></use>
+                </svg>
+                <p className={css.teacherRatesItem}>
+                  {" "}
+                  Rating: {teachers[0].rating}
+                </p>
+              </div>
+              <p className={`${css.price} ${css.teacherRatesItem}`}>
+                Price / 1 hour:
                 <span className={css.pricePerHour}>
                   {teachers[0].price_per_hour}$
                 </span>
               </p>
-              <svg className={css.heartIcon} width='16' height='16'>
+              <svg className={css.heartIcon} width='26' height='26'>
                 <use href='/icons.svg#icon-heartOpt'></use>
               </svg>
             </div>
-
-            <div className={css.teachersInfo}>
-              <h3>
-                {teachers[0].name} {teachers[0].surname}
-              </h3>
-              <p>Speaks: {teachers[0].languages.join(", ")}</p>
-              <p>Lesson info: {teachers[0].lesson_info}</p>
-              <p>Conditions: {teachers[0].conditions}</p>
-              <button className={css.readMoreBtn}>Read More</button>
-            </div>
           </div>
-          <p></p>
-          <p></p>
-          <p></p>
-          <p></p>
+
+          <div className={css.teachersInfo}>
+            <p>Speaks: {teachers[0].languages.join(", ")}</p>
+            <p>Lesson info: {teachers[0].lesson_info}</p>
+            <p>Conditions: {teachers[0].conditions}</p>
+            <button className={css.readMoreBtn}>Read More</button>
+          </div>
         </div>
+        <p></p>
+        <p></p>
+        <p></p>
+        <p></p>
       </div>
     </>
   )

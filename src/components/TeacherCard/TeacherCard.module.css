@@ -2,14 +2,8 @@
   display: flex;
   width: 1184px;
   padding: 24px;
-  align-items: flex-start;
-  gap: 48px;
   border-radius: 24px;
   background: #fff;
-}
-.cardWrapper {
-  display: flex;
-  gap: 48px;
 }
 
 .avatarWrapper {
@@ -18,6 +12,7 @@
   align-items: center;
   width: 120px;
   height: 120px;
+  margin-right: 48px;
   flex-shrink: 0;
   border-radius: 100px;
   border: 3px solid #fbe9ba;
@@ -35,29 +30,101 @@
 .teachersDetailsWrapper {
   display: flex;
   flex-direction: column;
+  flex-grow: 1;
+  width: auto;
+  margin-left: 0;
 }
 
 .teacherRates {
   display: flex;
+  width: 100%;
+  /* align-items: center; */
+  /* justify-content: space-between; */
+}
+
+.rates {
+  display: flex;
+  align-items: flex-start;
+}
+
+.onlineBlock {
+  display: flex;
   align-items: center;
 }
 
+.ratingBlock {
+  display: flex;
+  align-items: center;
+}
+
+.heartIcon {
+  fill: #fff;
+  stroke: #121417;
+  stroke-width: 1.5; /* Adjust stroke width as per design */
+}
+
+.bookIcon {
+  display: flex;
+  align-items: center;
+  width: 16px;
+  height: 16px;
+  fill: #000000;
+  margin-right: 8px;
+  fill: #fff;
+  stroke: black;
+  stroke-width: 2; /* Adjust stroke width as per design */
+}
+
+.starIcon {
+  margin-right: 8px;
+  fill: #ffc531;
+}
+
+.languagesName {
+  display: flex;
+  flex-direction: column;
+  margin-right: auto;
+  margin-top: 0;
+  gap: 8px;
+}
+
 .teacherLanguagesItem {
-  margin-right: 149px;
+  margin-right: auto;
+  margin-top: 0;
+  color: #8a8a89;
+  font-family: Roboto;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 1.5;
+}
+
+.teacherName {
+  color: #121417;
+  font-family: Roboto;
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 1;
 }
 
 .teacherRatesItem {
   display: flex;
-  align-items: center;
+  color: #121417;
+  font-family: Roboto;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 1.5;
 }
 
 .teacherRatesItem::after {
   content: " ";
   display: block;
-  align-items: center;
+  margin-top: 5px;
   margin-left: 16px;
   margin-right: 16px;
-  width: 1px; /* Adjust based on your design */
+  width: 2px;
   height: 16px;
   stroke-width: 1px;
   background-color: rgba(18, 20, 23, 0.2);
@@ -69,7 +136,8 @@
   font-size: 16px;
   font-style: normal;
   font-weight: 500;
-  line-height: 24px; /* 150% */
+  line-height: 1.5;
+  margin-right: 64px;
 }
 
 .pricePerHour {
@@ -78,7 +146,9 @@
   font-size: 16px;
   font-style: normal;
   font-weight: 500;
-  line-height: 24px;
+  line-height: 1.5;
+  margin: 0;
+  margin-left: 5px;
 }
 
 .teachersInfo {
