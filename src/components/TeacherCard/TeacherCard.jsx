@@ -128,7 +128,7 @@ export default function TeacherCard({ teachers }) {
               <span className={css.infoTitle}>Conditions:</span>{" "}
               <span className={css.infoText}>{teachers[0].conditions}</span>
             </li>
-            <button className={css.readMoreBtn}>Read More</button>
+            <button className={css.readMoreBtn}>Read more</button>
           </ul>
         </div>
         <p></p>
