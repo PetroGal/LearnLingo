@@ -128,13 +128,16 @@ export default function TeacherCard({ teachers }) {
               <span className={css.infoTitle}>Conditions:</span>{" "}
               <span className={css.infoText}>{teachers[0].conditions}</span>
             </li>
-            <button className={css.readMoreBtn}>Read more</button>
+          </ul>
+          <button className={css.readMoreBtn}>Read more</button>
+          <ul className={css.levels}>
+            {teachers[0].levels.map((level) => (
+              <li key={level} className={css.levelItem}>
+                {level}
+              </li>
+            ))}
           </ul>
         </div>
-        <p></p>
-        <p></p>
-        <p></p>
-        <p></p>
       </div>
     </>
   )

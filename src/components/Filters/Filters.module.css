@@ -10,6 +10,7 @@
   flex-direction: column;
   width: 100%;
   /* height: 48px; */
+  /* position: relative; */
 }
 
 .filterItem {
@@ -31,7 +32,6 @@
   font-weight: 500;
   line-height: 1.11;
   position: relative;
-  border: 1px solid #ccc;
 }
 
 .filterLanguage::after {
@@ -45,6 +45,12 @@
   height: 20px;
   background: url("/icons.svg#icon-logIn_opt");
   background-size: contain;
+}
+
+.languageSelectWrap,
+.levelSelectWrap,
+.priceSelectWrap {
+  position: relative;
 }
 
 .filterLevel {
@@ -70,7 +76,6 @@
   display: flex;
   align-items: center;
   justify-content: center;
-
   padding-left: 18px;
   color: #121417;
   font-family: Roboto;
@@ -102,4 +107,34 @@ select {
   font-size: inherit;
   color: inherit;
   appearance: none;
+}
+
+.chevronDownLanguageIcon {
+  fill: #fff;
+  stroke: #121417;
+  position: absolute;
+  left: 187px;
+  top: 50%;
+  transform: translateY(-50%);
+  pointer-events: none;
+}
+
+.chevronDownLevelIcon {
+  fill: #fff;
+  stroke: #121417;
+  position: absolute;
+  left: 164px;
+  top: 50%;
+  transform: translateY(-50%);
+  pointer-events: none;
+}
+
+.chevronDownPriceIcon {
+  fill: #fff;
+  stroke: #121417;
+  position: absolute;
+  left: 86px;
+  top: 50%;
+  transform: translateY(-50%);
+  pointer-events: none;
 }
