@@ -59,16 +59,23 @@ import css from "./TeacherCard.module.css"
 //   )
 // }
 
-export default function TeacherCard({ teachers }) {
+export default function TeacherCard({
+  name,
+  surname,
+  languages,
+  rating,
+  price_per_hour,
+  lessons_done,
+  avatar_url,
+  lesson_info,
+  conditions,
+  levels,
+}) {
   return (
     <>
       <div className={css.cardContainer}>
         <div className={css.avatarWrapper}>
-          <img
-            src={teachers[0].avatar_url}
-            className={css.avatarImg}
-            alt={teachers[0].name}
-          />
+          <img src={avatar_url} className={css.avatarImg} alt={name} />
         </div>
 
         <div className={css.teachersDetailsWrapper}>
@@ -76,7 +83,7 @@ export default function TeacherCard({ teachers }) {
             <div className={css.languagesName}>
               <p className={css.teacherLanguagesItem}>Languages</p>
               <h3 className={css.teacherName}>
-                {teachers[0].name} {teachers[0].surname}
+                {name} {surname}
               </h3>
             </div>
 
@@ -89,23 +96,18 @@ export default function TeacherCard({ teachers }) {
               </div>
 
               <p className={css.teacherRatesItem}>
-                Lessons done: {teachers[0].lessons_done}
+                Lessons done: {lessons_done}
               </p>
 
               <div className={css.ratingBlock}>
                 <svg className={css.starIcon} width='16' height='16'>
                   <use href='/icons.svg#icon-star'></use>
                 </svg>
-                <p className={css.teacherRatesItem}>
-                  {" "}
-                  Rating: {teachers[0].rating}
-                </p>
+                <p className={css.teacherRatesItem}> Rating: {rating}</p>
               </div>
               <p className={`${css.price} ${css.teacherRatesItem}`}>
                 Price / 1 hour:
-                <span className={css.pricePerHour}>
-                  {teachers[0].price_per_hour}$
-                </span>
+                <span className={css.pricePerHour}>{price_per_hour}$</span>
               </p>
               <svg className={css.heartIcon} width='26' height='26'>
                 <use href='/icons.svg#icon-heartOpt'></use>
@@ -117,21 +119,21 @@ export default function TeacherCard({ teachers }) {
             <li>
               <span className={css.infoTitle}>Speaks:</span>{" "}
               <span className={css.speaksLanguagesText}>
-                {teachers[0].languages.join(", ")}
+                {languages.join(", ")}
               </span>
             </li>
             <li>
               <span className={css.infoTitle}>Lesson info:</span>{" "}
-              <span className={css.infoText}>{teachers[0].lesson_info}</span>
+              <span className={css.infoText}>{lesson_info}</span>
             </li>
             <li>
               <span className={css.infoTitle}>Conditions:</span>{" "}
-              <span className={css.infoText}>{teachers[0].conditions}</span>
+              <span className={css.infoText}>{conditions}</span>
             </li>
           </ul>
           <button className={css.readMoreBtn}>Read more</button>
           <ul className={css.levels}>
-            {teachers[0].levels.map((level) => (
+            {levels.map((level) => (
               <li key={level} className={css.levelItem}>
                 {level}
               </li>

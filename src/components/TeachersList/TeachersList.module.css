@@ -1,3 +1,6 @@
 .teachersList {
+  display: flex;
+  flex-wrap: wrap;
   margin-bottom: 64px;
+  gap: 32px;
 }
