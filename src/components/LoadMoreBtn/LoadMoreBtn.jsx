@@ -1,3 +1,9 @@
+import css from "./LoadMoreBtn.module.css"
+
 export default function LoadMoreBtn() {
-  return <button>Load More</button>
+  return (
+    <div className={css.loadMoreWrap}>
+      <button className={css.loadMoreBtn}>Load More</button>
+    </div>
+  )
 }

@@ -1,0 +1,20 @@
+.loadMoreWrap {
+  display: flex;
+  justify-content: center;
+}
+
+.loadMoreBtn {
+  display: inline-flex;
+  padding: 16px 48px;
+  justify-content: center;
+  align-items: center;
+  border-radius: 12px;
+  background: #f4c550;
+  border: none;
+  color: #121417;
+  font-family: Roboto;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 28px; /* 155.556% */
+}
