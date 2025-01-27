@@ -1,4 +1,12 @@
-import { get, ref, set } from "firebase/database"
+import {
+  get,
+  query,
+  ref,
+  set,
+  orderByKey,
+  limitToFirst,
+  startAt,
+} from "firebase/database"
 import db from "../firebaseConfig.js"
 
 export function writeTeachersData(teachers) {
