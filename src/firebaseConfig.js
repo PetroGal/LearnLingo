@@ -12,8 +12,7 @@ const firebaseConfig = {
     "https://learnlingo-6df12-default-rtdb.europe-west1.firebasedatabase.app/",
 }
 
-const app = initializeApp(firebaseConfig)
+export const databaseURL =
+  "https://learnlingo-6df12-default-rtdb.europe-west1.firebasedatabase.app/"
 
-const db = getDatabase(app)
-
-export default db
+export default firebaseConfig

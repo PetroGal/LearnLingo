@@ -9,6 +9,9 @@ import TeachersPage from "../../pages/TeachersPage/TeachersPage.jsx"
 export default function App() {
   const teachers = processTeachers()
 
+  writeTeachersData(teachers)
+  getTeachersData()
+
   return (
     <div>
       <Header />

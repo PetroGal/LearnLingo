@@ -1,38 +1,26 @@
-import {
-  get,
-  query,
-  ref,
-  set,
-  orderByKey,
-  limitToFirst,
-  startAt,
-} from "firebase/database"
-import db from "../firebaseConfig.js"
+import axiosInstance from "./axiosInstance.js"
 
-export function writeTeachersData(teachers) {
-  const teachersRef = ref(db, "teachers")
-
-  set(teachersRef, teachers)
-    .then(() => {
-      console.log("Data has been successfully wrtitten into the database!")
-    })
-    .catch((error) => {
-      console.error("There is an error when writing data: ", error)
-    })
+export async function writeTeachersData(teachers) {
+  try {
+    const response = await axiosInstance.put("/teachers.json", teachers)
+    console.log("Data successfully written!", response.data)
+  } catch (error) {
+    console.error("Error writing data", error)
+  }
 }
 
-export function getTeachersData() {
-  const teachersRef = ref(db, "teachers")
-
-  get(teachersRef)
-    .then((snapshot) => {
-      if (snapshot.exists()) {
-        console.log("Data received: ", snapshot.val())
-      } else {
-        console.log("Data is not found")
-      }
-    })
-    .catch((error) => {
-      console.log("Data is not available: ", error)
-    })
+export async function getTeachersData() {
+  try {
+    const response = await axiosInstance.get("teachers.json")
+    if (response.data) {
+      console.log("Data received", response.data)
+      return response.data
+    } else {
+      console.log("No data found")
+      return null
+    }
+  } catch (error) {
+    console.error("Error fatching data:", error)
+    throw error
+  }
 }
