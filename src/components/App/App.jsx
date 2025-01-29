@@ -6,9 +6,6 @@ import HomePage from "../../pages/HomePage/HomePage.jsx"
 import TeachersPage from "../../pages/TeachersPage/TeachersPage.jsx"
 
 export default function App() {
-  writeTeachersData(teachers)
-  getTeachersData()
-
   return (
     <div>
       <Header />

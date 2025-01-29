@@ -1,12 +1,11 @@
 import TeacherCard from "../TeacherCard/TeacherCard.jsx"
-import teachers from "../../utils/teachersData.js"
 import css from "./TeachersList.module.css"
 
-export default function TeachersList() {
+export default function TeachersList({ teachers }) {
   return (
     <ul className={css.teachersList}>
       {teachers.map((teacher) => (
-        <TeacherCard key={teachers.name + teachers.surname} {...teacher} />
+        <TeacherCard key={teacher.id} {...teacher} />
       ))}
     </ul>
   )

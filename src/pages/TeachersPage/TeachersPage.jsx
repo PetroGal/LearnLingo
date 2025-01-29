@@ -6,28 +6,33 @@ import TeachersList from "../../components/TeachersList/TeachersList.jsx"
 import css from "./TeachersPage.module.css"
 
 export default function TeachersPage() {
-  const [teachers, setTeachers] = useState(null)
-  const [loading, setLoading] = useState(true)
-  const [error, setError] = useState(null)
+  const [teachers, setTeachers] = useState([])
+  const [loading, setLoading] = useState(false)
+  const [error, setError] = useState(false)
 
   useEffect(() => {
-    getTeachersData()
-      .then((data) => {
-        setTeachers(data)
+    const fetchTeachers = async () => {
+      try {
+        setLoading(true)
+        const teachersData = await getTeachersData()
+        setTeachers(teachersData)
+      } catch (error) {
+        setError(true)
+        console.error("Error fetching teachers data: ", error)
+      } finally {
         setLoading(false)
-      })
-      .catch((error) => {
-        setError(error)
-        setLoading(false)
-      })
-  })
+      }
+    }
+    fetchTeachers()
+  }, [])
 
   return (
     <div className={css.teachersSection}>
       <div className={css.teachersContainer}>
         <Filters />
         {loading && <p>Loading teachers, please wait...</p>}
-        {teachers.length > 0 && <TeachersList />}
+        {error && <p>Oops! There is an error, please reload the page!</p>}
+        {teachers.length > 0 && <TeachersList teachers={teachers} />}
         <LoadMoreBtn />
       </div>
     </div>
