@@ -1,4 +1,15 @@
+import {
+  getDatabase,
+  ref,
+  query,
+  orderByKey,
+  startAfter,
+  limitToFirst,
+  get,
+} from "firebase/database"
 import axiosInstance from "./axiosInstance.js"
+
+const PER_PAGE = 4
 
 export async function writeTeachersData(teachers) {
   try {
@@ -10,19 +21,34 @@ export async function writeTeachersData(teachers) {
   }
 }
 
-export async function getTeachersData() {
+export async function getTeachersData(lastKey = null) {
   try {
-    const response = await axiosInstance.get("/teachers.json")
-    const data = response.data
+    const db = getDatabase()
 
-    if (!data) {
-      console.log("No teachers found in database.")
-      return []
+    let teachersQuery = query(ref(db, "teachers"), orderByKey())
+
+    if (lastKey) {
+      teachersQuery = query(
+        ref(db, "teachers"),
+        startAfter(lastKey),
+        limitToFirst(PER_PAGE + 1)
+      )
     }
-    return Object.entries(data).map(([id, teacher]) => ({
+
+    const snapshot = await get(teachersQuery)
+    if (!snapshot.exists()) return { teachers: ([].lastKey = null) }
+    const data = snapshot.val()
+    const teachersArray = Object.entries(data).map(([id, teacher]) => ({
       id,
       ...teacher,
     }))
+
+    const nextKey =
+      teachersArray.length > PER_PAGE ? teachersArray[PER_PAGE].id : null
+    return {
+      teachers: teachersArray.slice(0, PER_PAGE),
+      lastKey: nextKey,
+    }
   } catch (error) {
     console.error("Error fatching teachers:", error)
     throw error

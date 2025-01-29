@@ -1,6 +1,3 @@
-import { getDatabase } from "firebase/database"
-import { initializeApp } from "firebase/app"
-
 const firebaseConfig = {
   apiKey: "AIzaSyC3Tj9KoWvIyt63HLqWpcNKZG5PT3-k8VA",
   authDomain: "learnlingo-6df12.firebaseapp.com",
