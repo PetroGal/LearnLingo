@@ -9,13 +9,19 @@ export default function TeachersPage() {
   const [teachers, setTeachers] = useState([])
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState(false)
+  const [lastKey, setLastKey] = useState(null)
+  const [hasMore, setHasMore] = useState(true)
 
   useEffect(() => {
     const fetchTeachers = async () => {
       try {
         setLoading(true)
-        const teachersData = await getTeachersData()
-        setTeachers(teachersData)
+        const { teachers: newTeachers, lastKey: newLastKey } =
+          await getTeachersData()
+        setTeachers(newTeachers)
+        setLastKey(newLastKey)
+        console.log(typeof newLastKey)
+        setHasMore(!!newLastKey)
       } catch (error) {
         setError(true)
         console.error("Error fetching teachers data: ", error)
@@ -26,6 +32,23 @@ export default function TeachersPage() {
     fetchTeachers()
   }, [])
 
+  const loadMoreTeachers = async () => {
+    if (!lastKey) return
+    try {
+      setLoading(true)
+      const { teachers: newTeachers, lastKey: newLastKey } =
+        await getTeachersData(lastKey)
+      setTeachers((prtevTeachers) => [...prtevTeachers, ...newTeachers])
+      setLastKey(newLastKey)
+      setHasMore(!!newLastKey)
+    } catch (error) {
+      setError(true)
+      console.log("Error loading more teachers:", error)
+    } finally {
+      setLoading(false)
+    }
+  }
+
   return (
     <div className={css.teachersSection}>
       <div className={css.teachersContainer}>
@@ -33,7 +56,7 @@ export default function TeachersPage() {
         {loading && <p>Loading teachers, please wait...</p>}
         {error && <p>Oops! There is an error, please reload the page!</p>}
         {teachers.length > 0 && <TeachersList teachers={teachers} />}
-        <LoadMoreBtn />
+        {hasMore && !loading && <LoadMoreBtn onClick={loadMoreTeachers} />}
       </div>
     </div>
   )

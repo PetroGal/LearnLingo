@@ -25,32 +25,44 @@ export async function getTeachersData(lastKey = null) {
   try {
     const db = getDatabase()
 
-    let teachersQuery = query(ref(db, "teachers"), orderByKey())
+    let teachersQuery = query(
+      ref(db, "teachers"),
+      orderByKey(),
+      limitToFirst(PER_PAGE + 1)
+    )
+
+    // console.log("Last key type:", typeof lastKey, ",", "Value:", lastKey)
 
     if (lastKey) {
       teachersQuery = query(
         ref(db, "teachers"),
-        startAfter(lastKey),
+        orderByKey(),
+        startAfter(String(lastKey)),
         limitToFirst(PER_PAGE + 1)
       )
     }
 
     const snapshot = await get(teachersQuery)
-    if (!snapshot.exists()) return { teachers: ([].lastKey = null) }
+    if (!snapshot.exists()) return { teachers: [], lastKey: null }
+
     const data = snapshot.val()
     const teachersArray = Object.entries(data).map(([id, teacher]) => ({
       id,
       ...teacher,
     }))
 
+    // console.log(typeof teachersArray[0].id)
     const nextKey =
-      teachersArray.length > PER_PAGE ? teachersArray[PER_PAGE].id : null
+      teachersArray.length > PER_PAGE && teachersArray[PER_PAGE]
+        ? String(teachersArray[PER_PAGE].id)
+        : null
+
     return {
       teachers: teachersArray.slice(0, PER_PAGE),
       lastKey: nextKey,
     }
   } catch (error) {
-    console.error("Error fatching teachers:", error)
+    console.error("Error fetching teachers:", error)
     throw error
   }
 }
