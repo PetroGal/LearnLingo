@@ -1,10 +1,13 @@
 import css from "./Filters.module.css"
-import { useState } from "react"
 
-export default function Filters() {
-  const [selectedLanguage, setSelectedLanguage] = useState("")
-  const [selectedLevel, setSelectedLevel] = useState("")
-  const [selectedPrice, setSelectedPrice] = useState("")
+export default function Filters({
+  selectedLanguage,
+  setSelectedLanguage,
+  selectedLevel,
+  setSelectedLevel,
+  selectedPrice,
+  setSelectedPrice,
+}) {
   return (
     <div>
       <ul className={css.filtersList}>
@@ -19,6 +22,7 @@ export default function Filters() {
                 value={selectedLanguage}
                 onChange={(e) => setSelectedLanguage(e.target.value)}
               >
+                <option value=''>Any</option>
                 <option value='French'>French</option>
                 <option value='English'>English</option>
                 <option value='German'>German</option>
@@ -46,6 +50,7 @@ export default function Filters() {
                 value={selectedLevel}
                 onChange={(e) => setSelectedLevel(e.target.value)}
               >
+                <option value=''>Any</option>
                 <option value='beginner'>A1 Beginner</option>
                 <option value='elementary'>A2 Elementary</option>
                 <option value='intermediate'>B1 Intermediate</option>
@@ -74,6 +79,7 @@ export default function Filters() {
                 value={selectedPrice}
                 onChange={(e) => setSelectedPrice(e.target.value)}
               >
+                <option value=''>Any</option>
                 <option value='10'>10 $</option>
                 <option value='20'>20 $</option>
                 <option value='30'>30 $</option>
