@@ -21,12 +21,7 @@ export async function writeTeachersData(teachers) {
   }
 }
 
-export async function getTeachersData(
-  lastKey = null,
-  selectedLanguage,
-  selectedLevel,
-  selectedPrice
-) {
+export async function getTeachersData(lastKey = null, filters = {}) {
   try {
     const db = getDatabase()
 
@@ -48,31 +43,22 @@ export async function getTeachersData(
     const snapshot = await get(teachersQuery)
     if (!snapshot.exists()) return { teachers: [], lastKey: null }
 
-    const data = snapshot.val()
-    let teachersArray = Object.entries(data).map(([id, teacher]) => ({
+    let teachersArray = Object.entries(snapshot.val()).map(([id, teacher]) => ({
       id,
       ...teacher,
     }))
-    // 🔹 Apply Local Filtering Since Firebase Lacks Complex Queries
-    if (selectedLanguage) {
-      teachersArray = teachersArray.filter(
-        (teacher) => teacher.language === selectedLanguage
-      )
-    }
 
-    if (selectedLevel) {
-      teachersArray = teachersArray.filter(
-        (teacher) => teacher.level === selectedLevel
-      )
-    }
+    // 🔹 Apply filters
+    teachersArray = teachersArray.filter((teacher) => {
+      const { language, level, price } = filters
 
-    if (selectedPrice) {
-      teachersArray = teachersArray.filter(
-        (teacher) => teacher.price === Number(selectedPrice)
+      return (
+        (!language || teacher.language === language) &&
+        (!level || teacher.level === level) &&
+        (!price || teacher.price === Number(price))
       )
-    }
+    })
 
-    // 🔹 Determine Next Key for Pagination
     const nextKey =
       teachersArray.length > PER_PAGE && teachersArray[PER_PAGE]
         ? String(teachersArray[PER_PAGE].id)
