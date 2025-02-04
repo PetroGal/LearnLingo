@@ -22,7 +22,7 @@ export default function Filters({
                 value={selectedLanguage}
                 onChange={(e) => setSelectedLanguage(e.target.value)}
               >
-                <option value=''>Any</option>
+                <option value=''>All Languages</option>
                 <option value='French'>French</option>
                 <option value='English'>English</option>
                 <option value='German'>German</option>
@@ -50,7 +50,7 @@ export default function Filters({
                 value={selectedLevel}
                 onChange={(e) => setSelectedLevel(e.target.value)}
               >
-                <option value=''>Any</option>
+                <option value=''>All Levels</option>
                 <option value='beginner'>A1 Beginner</option>
                 <option value='elementary'>A2 Elementary</option>
                 <option value='intermediate'>B1 Intermediate</option>
@@ -79,7 +79,7 @@ export default function Filters({
                 value={selectedPrice}
                 onChange={(e) => setSelectedPrice(e.target.value)}
               >
-                <option value=''>Any</option>
+                <option value=''>All Prices</option>
                 <option value='10'>10 $</option>
                 <option value='20'>20 $</option>
                 <option value='30'>30 $</option>
