@@ -12,7 +12,7 @@ export default function TeachersPage() {
   const [lastKey, setLastKey] = useState(null)
   const [hasMore, setHasMore] = useState(true)
 
-  // ✅ Lifted filter state
+  // 🔹 State for Filters
   const [selectedLanguage, setSelectedLanguage] = useState("")
   const [selectedLevel, setSelectedLevel] = useState("")
   const [selectedPrice, setSelectedPrice] = useState("")
@@ -22,7 +22,12 @@ export default function TeachersPage() {
       try {
         setLoading(true)
         const { teachers: newTeachers, lastKey: newLastKey } =
-          await getTeachersData()
+          await getTeachersData(
+            null,
+            selectedLanguage,
+            selectedLevel,
+            selectedPrice
+          )
         setTeachers(newTeachers)
         setLastKey(newLastKey)
         setHasMore(!!newLastKey)
@@ -34,14 +39,19 @@ export default function TeachersPage() {
       }
     }
     fetchTeachers()
-  }, [])
+  }, [selectedLanguage, selectedLevel, selectedPrice]) // 🔹 Fetch data when filters change
 
   const loadMoreTeachers = async () => {
     if (!lastKey) return
     try {
       setLoading(true)
       const { teachers: newTeachers, lastKey: newLastKey } =
-        await getTeachersData(lastKey)
+        await getTeachersData(
+          lastKey,
+          selectedLanguage,
+          selectedLevel,
+          selectedPrice
+        )
       setTeachers((prevTeachers) => [...prevTeachers, ...newTeachers])
       setLastKey(newLastKey)
       setHasMore(!!newLastKey)
@@ -56,7 +66,7 @@ export default function TeachersPage() {
   return (
     <div className={css.teachersSection}>
       <div className={css.teachersContainer}>
-        {/* ✅ Pass filter state and handlers to Filters */}
+        {/* 🔹 Pass State-Updating Functions to Filters */}
         <Filters
           selectedLanguage={selectedLanguage}
           setSelectedLanguage={setSelectedLanguage}
