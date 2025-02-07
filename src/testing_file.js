@@ -1,80 +1,73 @@
-import css from "./Filters.module.css"
+import { useEffect, useState } from "react"
+import Filters from "../Filters/Filters"
+import TeachersList from "../TeachersList/TeachersList"
+import { getTeachersData } from "../../services/firebaseDatabase"
+import css from "./TeachersPage.module.css"
 
-export default function Filters({
-  selectedLanguage,
-  setSelectedLanguage,
-  selectedLevel,
-  setSelectedLevel,
-  selectedPrice,
-  setSelectedPrice,
-}) {
+export default function TeachersPage() {
+  const [teachers, setTeachers] = useState([])
+  const [loading, setLoading] = useState(false)
+  const [error, setError] = useState(false)
+  const [lastKey, setLastKey] = useState(null)
+  const [hasMore, setHasMore] = useState(true)
+  const [selectedFilters, setSelectedFilters] = useState({
+    language: "",
+    level: "",
+    price: "",
+  })
+
+  const handleFilterChange = (newFilters) => {
+    setSelectedFilters(newFilters)
+  }
+
+  useEffect(() => {
+    const fetchTeachers = async () => {
+      try {
+        setLoading(true)
+        const { teachers: newTeachers, lastKey: newLastKey } =
+          await getTeachersData(null, selectedFilters) // Pass filters
+        setTeachers(newTeachers)
+        setLastKey(newLastKey)
+        setHasMore(!!newLastKey)
+      } catch (error) {
+        setError(true)
+        console.error("Error fetching teachers data: ", error)
+      } finally {
+        setLoading(false)
+      }
+    }
+    fetchTeachers()
+  }, [selectedFilters]) // Fetch new data when filters change
+
   return (
-    <div>
-      <ul className={css.filtersList}>
-        <li className={css.filterItem}>
-          <div className={css.filterItemsWrapper}>
-            <label htmlFor='language'>Languages</label>
-            <div className={css.languageSelectWrap}>
-              <select
-                name='language'
-                id='language'
-                className={css.filterLanguage}
-                value={selectedLanguage}
-                onChange={(e) => setSelectedLanguage(e.target.value)}
-              >
-                <option value=''>Any</option>
-                <option value='French'>French</option>
-                <option value='English'>English</option>
-                <option value='German'>German</option>
-                <option value='Ukrainian'>Ukrainian</option>
-                <option value='Polish'>Polish</option>
-              </select>
-            </div>
-          </div>
-        </li>
-        <li className={css.filterItem}>
-          <div className={css.filterItemsWrapper}>
-            <label htmlFor='level'>Level of knowledge</label>
-            <div className={css.levelSelectWrap}>
-              <select
-                name='level'
-                id='level'
-                className={css.filterLevel}
-                value={selectedLevel}
-                onChange={(e) => setSelectedLevel(e.target.value)}
-              >
-                <option value=''>Any</option>
-                <option value='beginner'>A1 Beginner</option>
-                <option value='elementary'>A2 Elementary</option>
-                <option value='intermediate'>B1 Intermediate</option>
-                <option value='upper-intermediate'>
-                  B2 Upper-Intermediate
-                </option>
-              </select>
-            </div>
-          </div>
-        </li>
-        <li className={css.filterItem}>
-          <div className={css.filterItemsWrapper}>
-            <label htmlFor='price'>Price</label>
-            <div className={css.priceSelectWrap}>
-              <select
-                name='price'
-                id='price'
-                className={css.filterPrice}
-                value={selectedPrice}
-                onChange={(e) => setSelectedPrice(e.target.value)}
-              >
-                <option value=''>Any</option>
-                <option value='10'>10 $</option>
-                <option value='20'>20 $</option>
-                <option value='30'>30 $</option>
-                <option value='40'>40 $</option>
-              </select>
-            </div>
-          </div>
-        </li>
-      </ul>
+    <div className={css.teachersSection}>
+      <Filters onFilterChange={handleFilterChange} />{" "}
+      {/* Pass filter handler */}
+      {teachers.length > 0 && <TeachersList teachers={teachers} />}
+      {hasMore && !loading && (
+        <button
+          className={css.loadMoreBtn}
+          onClick={async () => {
+            if (!lastKey) return
+            try {
+              setLoading(true)
+              const { teachers: newTeachers, lastKey: newLastKey } =
+                await getTeachersData(lastKey, selectedFilters)
+              setTeachers((prev) => [...prev, ...newTeachers])
+              setLastKey(newLastKey)
+              setHasMore(!!newLastKey)
+            } catch (error) {
+              console.error("Error loading more teachers:", error)
+            } finally {
+              setLoading(false)
+            }
+          }}
+        >
+          Load More
+        </button>
+      )}
+      {loading && <p>Loading...</p>}
+      {error && <p>Error loading teachers</p>}
     </div>
   )
 }
