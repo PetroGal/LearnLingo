@@ -20,20 +20,42 @@ export default function TeachersPage() {
     const fetchTeachers = async () => {
       try {
         setLoading(true)
+        setError(false)
         const { teachers: newTeachers, lastKey: newLastKey } =
-          await getTeachersData()
+          await getTeachersData(null, selectedLanguage) // Pass language
+
         setTeachers(newTeachers)
         setLastKey(newLastKey)
         setHasMore(!!newLastKey)
       } catch (error) {
         setError(true)
-        console.error("Error fetching teachers data: ", error)
+        console.error("Error fetching teachers data:", error)
       } finally {
         setLoading(false)
       }
     }
+
     fetchTeachers()
-  }, [])
+  }, [selectedLanguage]) // 👈 Re-fetch when language changes
+
+  // useEffect(() => {
+  //   const fetchTeachers = async () => {
+  //     try {
+  //       setLoading(true)
+  //       const { teachers: newTeachers, lastKey: newLastKey } =
+  //         await getTeachersData()
+  //       setTeachers(newTeachers)
+  //       setLastKey(newLastKey)
+  //       setHasMore(!!newLastKey)
+  //     } catch (error) {
+  //       setError(true)
+  //       console.error("Error fetching teachers data: ", error)
+  //     } finally {
+  //       setLoading(false)
+  //     }
+  //   }
+  //   fetchTeachers()
+  // }, [])
 
   const changeLang = (newLang) => {
     setSelectedLanguage(newLang)
