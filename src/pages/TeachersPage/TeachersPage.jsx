@@ -20,45 +20,31 @@ export default function TeachersPage() {
     const fetchTeachers = async () => {
       try {
         setLoading(true)
-        setError(false)
         const { teachers: newTeachers, lastKey: newLastKey } =
-          await getTeachersData(null, selectedLanguage) // Pass language
-
+          await getTeachersData()
         setTeachers(newTeachers)
         setLastKey(newLastKey)
         setHasMore(!!newLastKey)
       } catch (error) {
         setError(true)
-        console.error("Error fetching teachers data:", error)
+        console.error("Error fetching teachers data: ", error)
       } finally {
         setLoading(false)
       }
     }
-
     fetchTeachers()
-  }, [selectedLanguage]) // 👈 Re-fetch when language changes
+  }, [])
 
-  // useEffect(() => {
-  //   const fetchTeachers = async () => {
-  //     try {
-  //       setLoading(true)
-  //       const { teachers: newTeachers, lastKey: newLastKey } =
-  //         await getTeachersData()
-  //       setTeachers(newTeachers)
-  //       setLastKey(newLastKey)
-  //       setHasMore(!!newLastKey)
-  //     } catch (error) {
-  //       setError(true)
-  //       console.error("Error fetching teachers data: ", error)
-  //     } finally {
-  //       setLoading(false)
-  //     }
-  //   }
-  //   fetchTeachers()
-  // }, [])
+  const changeLanguage = (newLanguage) => {
+    setSelectedLanguage(newLanguage)
+  }
 
-  const changeLang = (newLang) => {
-    setSelectedLanguage(newLang)
+  const changeLevel = (newLevel) => {
+    setSelectedLevel(newLevel)
+  }
+
+  const changePrice = (newPrice) => {
+    setSelectedPrice(newPrice)
   }
 
   const loadMoreTeachers = async () => {
@@ -83,12 +69,12 @@ export default function TeachersPage() {
       <div className={css.teachersContainer}>
         {/* ✅ Pass filter state and handlers to Filters */}
         <Filters
-          value={selectedLanguage}
-          onSelect={changeLang}
+          selectedLanguage={selectedLanguage}
+          onLanguageSelect={changeLanguage}
           selectedLevel={selectedLevel}
-          setSelectedLevel={setSelectedLevel}
+          onLevelSelect={changeLevel}
           selectedPrice={selectedPrice}
-          setSelectedPrice={setSelectedPrice}
+          onPriceSelect={changePrice}
         />
         {loading && <p>Loading teachers, please wait...</p>}
         {error && <p>Oops! There is an error, please reload the page!</p>}
