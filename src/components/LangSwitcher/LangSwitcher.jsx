@@ -1,8 +1,8 @@
 import css from "./LangSwitcher.module.css"
 
-export default function LangSwitcher({ value, onSelect }) {
+export default function LangSwitcher({ slectedLanguage, onLanguageSelect }) {
   const handleChange = (event) => {
-    onSelect(event.target.value)
+    onLanguageSelect(event.target.value)
   }
 
   return (
@@ -13,7 +13,7 @@ export default function LangSwitcher({ value, onSelect }) {
           name='language'
           id='language'
           className={css.filterLanguage}
-          value={value}
+          value={slectedLanguage}
           onChange={handleChange}
         >
           <option value='French'>French</option>

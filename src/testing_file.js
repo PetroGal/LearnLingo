@@ -1,73 +1,99 @@
-import { useEffect, useState } from "react"
-import Filters from "../Filters/Filters"
-import TeachersList from "../TeachersList/TeachersList"
-import { getTeachersData } from "../../services/firebaseDatabase"
-import css from "./TeachersPage.module.css"
+import {
+  getDatabase,
+  ref,
+  query,
+  orderByKey,
+  startAfter,
+  limitToFirst,
+  get,
+} from "firebase/database"
+import { db } from "../firebaseConfig.js"
+import axiosInstance from "./axiosInstance.js"
 
-export default function TeachersPage() {
-  const [teachers, setTeachers] = useState([])
-  const [loading, setLoading] = useState(false)
-  const [error, setError] = useState(false)
-  const [lastKey, setLastKey] = useState(null)
-  const [hasMore, setHasMore] = useState(true)
-  const [selectedFilters, setSelectedFilters] = useState({
-    language: "",
-    level: "",
-    price: "",
-  })
+const PER_PAGE = 4
 
-  const handleFilterChange = (newFilters) => {
-    setSelectedFilters(newFilters)
+export async function writeTeachersData(teachers) {
+  try {
+    const response = await axiosInstance.put("/teachers.json", teachers)
+    console.log("✅ Data successfully written to Firebase!", response.data)
+  } catch (error) {
+    console.error("❌ Error writing data", error)
+    throw error
   }
+}
 
-  useEffect(() => {
-    const fetchTeachers = async () => {
-      try {
-        setLoading(true)
-        const { teachers: newTeachers, lastKey: newLastKey } =
-          await getTeachersData(null, selectedFilters) // Pass filters
-        setTeachers(newTeachers)
-        setLastKey(newLastKey)
-        setHasMore(!!newLastKey)
-      } catch (error) {
-        setError(true)
-        console.error("Error fetching teachers data: ", error)
-      } finally {
-        setLoading(false)
-      }
+export async function getTeachersData(lastKey = null, filters = {}) {
+  try {
+    console.log("🔹 Received filters:", filters)
+
+    let teachersQuery = query(ref(db, "teachers"), orderByKey())
+
+    if (lastKey) {
+      teachersQuery = query(teachersQuery, startAfter(lastKey))
     }
-    fetchTeachers()
-  }, [selectedFilters]) // Fetch new data when filters change
 
-  return (
-    <div className={css.teachersSection}>
-      <Filters onFilterChange={handleFilterChange} />{" "}
-      {/* Pass filter handler */}
-      {teachers.length > 0 && <TeachersList teachers={teachers} />}
-      {hasMore && !loading && (
-        <button
-          className={css.loadMoreBtn}
-          onClick={async () => {
-            if (!lastKey) return
-            try {
-              setLoading(true)
-              const { teachers: newTeachers, lastKey: newLastKey } =
-                await getTeachersData(lastKey, selectedFilters)
-              setTeachers((prev) => [...prev, ...newTeachers])
-              setLastKey(newLastKey)
-              setHasMore(!!newLastKey)
-            } catch (error) {
-              console.error("Error loading more teachers:", error)
-            } finally {
-              setLoading(false)
-            }
-          }}
-        >
-          Load More
-        </button>
-      )}
-      {loading && <p>Loading...</p>}
-      {error && <p>Error loading teachers</p>}
-    </div>
-  )
+    teachersQuery = query(teachersQuery, limitToFirst(PER_PAGE))
+
+    const snapshot = await get(teachersQuery)
+    if (!snapshot.exists()) {
+      console.log("⚠️ No teachers found in Firebase.")
+      return { teachers: [], lastKey: null }
+    }
+
+    let teachersArray = Object.entries(snapshot.val()).map(([id, teacher]) => ({
+      id,
+      ...teacher,
+    }))
+
+    console.log("📌 Retrieved teachers before filtering:", teachersArray)
+
+    // 🔹 Debug: Log languages before filtering
+    teachersArray.forEach((teacher) => {
+      console.log(`👀 Teacher ${teacher.id} languages:`, teacher.languages)
+    })
+
+    // 🔹 Apply filters (Fixed Logic)
+    if (filters.language) {
+      const filterLang = filters.language.toLowerCase().trim()
+      teachersArray = teachersArray.filter((teacher) => {
+        if (!teacher.languages || !Array.isArray(teacher.languages)) {
+          console.warn(
+            `⚠️ Skipping teacher ${teacher.id}, invalid languages field`
+          )
+          return false
+        }
+
+        const teacherLanguages = teacher.languages.map((lang) =>
+          lang.toLowerCase().trim()
+        )
+
+        const isMatch = teacherLanguages.includes(filterLang)
+        console.log(
+          `🔍 Checking ${teacher.id}: Does ${teacherLanguages} include "${filterLang}"? → ${isMatch}`
+        )
+
+        return isMatch // ✅ This must explicitly return TRUE only for matches
+      })
+    }
+
+    console.log("✅ Teachers after filtering:", teachersArray)
+
+    const nextKey =
+      teachersArray.length > PER_PAGE && teachersArray[PER_PAGE]
+        ? String(teachersArray[PER_PAGE].id)
+        : null
+
+    console.log("🚀 Final result:", {
+      teachers: teachersArray.slice(0, PER_PAGE),
+      lastKey: nextKey,
+    })
+
+    return {
+      teachers: teachersArray.slice(0, PER_PAGE),
+      lastKey: nextKey,
+    }
+  } catch (error) {
+    console.error("❌ Error fetching teachers:", error)
+    throw error
+  }
 }
