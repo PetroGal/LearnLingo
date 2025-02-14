@@ -17,7 +17,7 @@ export default function TeachersPage() {
   const [selectedPrice, setSelectedPrice] = useState("")
 
   useEffect(() => {
-    const fetchTeachers = async () => {
+    const getTeachers = async () => {
       try {
         setLoading(true)
         const { teachers: newTeachers, lastKey: newLastKey } =
@@ -32,20 +32,33 @@ export default function TeachersPage() {
         setLoading(false)
       }
     }
-    fetchTeachers()
+    getTeachers()
   }, [])
 
   const changeLanguage = (newLanguage) => {
     setSelectedLanguage(newLanguage)
+    console.log(newLanguage)
   }
 
   const changeLevel = (newLevel) => {
     setSelectedLevel(newLevel)
+    console.log(newLevel)
   }
 
   const changePrice = (newPrice) => {
     setSelectedPrice(newPrice)
+    console.log(newPrice)
   }
+
+  // ✅ Function to apply all filters
+  const visibleTeachers = teachers.filter((teacher) => {
+    const matchesLanguage =
+      selectedLanguage === "" || teacher.languages.includes(selectedLanguage)
+    const matchesLevel = selectedLevel === "" || teacher.level === selectedLevel
+    const matchesPrice = selectedPrice === "" || teacher.price === selectedPrice
+
+    return matchesLanguage && matchesLevel && matchesPrice
+  })
 
   const loadMoreTeachers = async () => {
     if (!lastKey) return
@@ -67,7 +80,6 @@ export default function TeachersPage() {
   return (
     <div className={css.teachersSection}>
       <div className={css.teachersContainer}>
-        {/* ✅ Pass filter state and handlers to Filters */}
         <Filters
           selectedLanguage={selectedLanguage}
           onLanguageSelect={changeLanguage}
@@ -78,7 +90,7 @@ export default function TeachersPage() {
         />
         {loading && <p>Loading teachers, please wait...</p>}
         {error && <p>Oops! There is an error, please reload the page!</p>}
-        {teachers.length > 0 && <TeachersList teachers={teachers} />}
+        {teachers.length > 0 && <TeachersList teachers={visibleTeachers} />}
         {hasMore && !loading && <LoadMoreBtn onClick={loadMoreTeachers} />}
       </div>
     </div>

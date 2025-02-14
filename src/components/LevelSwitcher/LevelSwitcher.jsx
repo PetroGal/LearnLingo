@@ -1,6 +1,6 @@
 import css from "./LevelSwitcher.module.css"
 
-export default function levelSwitcher({ selectedLevel, onLevelSelect }) {
+export default function LevelSwitcher({ selectedLevel, onLevelSelect }) {
   const handleChange = (event) => {
     onLevelSelect(event.target.value)
   }

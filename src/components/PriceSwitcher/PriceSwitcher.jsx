@@ -1,6 +1,6 @@
 import css from "./PriceSwitcher.module.css"
 
-export default function priceSwitcher({ selectedPrice, onPriceSelect }) {
+export default function PriceSwitcher({ selectedPrice, onPriceSelect }) {
   const handleChange = (event) => {
     onPriceSelect(event.target.value)
   }
