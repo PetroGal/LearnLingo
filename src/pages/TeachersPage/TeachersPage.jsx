@@ -12,7 +12,7 @@ export default function TeachersPage() {
   const [lastKey, setLastKey] = useState(null)
   const [hasMore, setHasMore] = useState(true)
   // ✅ Lifted filter state
-  const [selectedLanguage, setSelectedLanguage] = useState("French")
+  const [selectedLanguage, setSelectedLanguage] = useState("")
   const [selectedLevel, setSelectedLevel] = useState("")
   const [selectedPrice, setSelectedPrice] = useState("")
 
@@ -35,6 +35,10 @@ export default function TeachersPage() {
     getTeachers()
   }, [])
 
+  const visiableTeachers = teachers.filter((teacher) =>
+    teacher.languages.includes(selectedLanguage)
+  )
+
   const changeLanguage = (newLanguage) => {
     setSelectedLanguage(newLanguage)
     console.log(newLanguage)
@@ -49,16 +53,6 @@ export default function TeachersPage() {
     setSelectedPrice(newPrice)
     console.log(newPrice)
   }
-
-  // ✅ Function to apply all filters
-  const visibleTeachers = teachers.filter((teacher) => {
-    const matchesLanguage =
-      selectedLanguage === "" || teacher.languages.includes(selectedLanguage)
-    const matchesLevel = selectedLevel === "" || teacher.level === selectedLevel
-    const matchesPrice = selectedPrice === "" || teacher.price === selectedPrice
-
-    return matchesLanguage && matchesLevel && matchesPrice
-  })
 
   const loadMoreTeachers = async () => {
     if (!lastKey) return
@@ -90,7 +84,17 @@ export default function TeachersPage() {
         />
         {loading && <p>Loading teachers, please wait...</p>}
         {error && <p>Oops! There is an error, please reload the page!</p>}
-        {teachers.length > 0 && <TeachersList teachers={visibleTeachers} />}
+        {teachers.length > 0 && (
+          <TeachersList
+            teachers={
+              selectedLanguage !== "" && visiableTeachers.length === 0
+                ? []
+                : selectedLanguage !== ""
+                ? visiableTeachers
+                : teachers
+            }
+          />
+        )}
         {hasMore && !loading && <LoadMoreBtn onClick={loadMoreTeachers} />}
       </div>
     </div>
