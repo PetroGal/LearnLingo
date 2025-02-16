@@ -35,10 +35,17 @@ export default function TeachersPage() {
     getTeachers()
   }, [])
 
-  const visiableTeachers = teachers.filter((teacher) =>
-    teacher.languages.includes(selectedLanguage)
-  )
+  // const visibleTeachers = teachers.filter((teacher) =>
+  //   teacher.languages.includes(selectedLanguage)
+  // )
 
+  const visibleTeachers = teachers.filter(
+    (teacher) =>
+      (selectedLanguage === "" ||
+        teacher.languages.includes(selectedLanguage)) &&
+      (selectedLevel === "" || teacher.levels.includes(selectedLevel)) &&
+      (selectedPrice === "" || teacher.prices.includes(selectedPrice))
+  )
   const changeLanguage = (newLanguage) => {
     setSelectedLanguage(newLanguage)
     console.log(newLanguage)
@@ -87,12 +94,20 @@ export default function TeachersPage() {
         {teachers.length > 0 && (
           <TeachersList
             teachers={
-              selectedLanguage !== "" && visiableTeachers.length === 0
-                ? []
-                : selectedLanguage !== ""
-                ? visiableTeachers
-                : teachers
+              (selectedLanguage || selectedLevel || selectedPrice) &&
+              visibleTeachers.length === 0
+                ? [] // If filters are applied but no match, show an empty list
+                : selectedLanguage || selectedLevel || selectedPrice
+                ? visibleTeachers // Show filtered teachers
+                : teachers // Show all loaded teachers if no filters applied
             }
+            // teachers={
+            //   selectedLanguage !== "" && visibleTeachers.length === 0
+            //     ? []
+            //     : selectedLanguage !== ""
+            //     ? visibleTeachers
+            //     : teachers
+            // }
           />
         )}
         {hasMore && !loading && <LoadMoreBtn onClick={loadMoreTeachers} />}
