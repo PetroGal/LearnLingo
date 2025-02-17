@@ -1,9 +1,15 @@
 import css from "./PriceSwitcher.module.css"
 
-export default function PriceSwitcher({ selectedPrice, onPriceSelect }) {
+export default function PriceSwitcher({
+  selectedPrice,
+  onPriceSelect,
+  allPrices,
+}) {
   const handleChange = (event) => {
     onPriceSelect(event.target.value)
   }
+
+  console.log("Price in PriceSwitcher: ", allPrices)
   return (
     <div className={css.filterItemsWrapper}>
       <label htmlFor='price'>Price</label>
@@ -15,10 +21,12 @@ export default function PriceSwitcher({ selectedPrice, onPriceSelect }) {
           value={selectedPrice}
           onChange={handleChange}
         >
-          <option value='10'>10 $</option>
-          <option value='20'>20 $</option>
-          <option value='30'>30 $</option>
-          <option value='40'>40 $</option>
+          <option value=''>All prices</option>
+          {allPrices.map((price) => (
+            <option key={price} value={price}>
+              {price}
+            </option>
+          ))}
         </select>
         <svg className={css.chevronDownPriceIcon} width='20px' height='20px'>
           <use href='/public/icons.svg#icon-chevron-downOpt'></use>

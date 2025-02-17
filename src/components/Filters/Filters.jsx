@@ -7,6 +7,7 @@ import css from "./Filters.module.css"
 export default function Filters({
   allLanguages,
   allLevels,
+  allPrices,
   selectedLanguage,
   selectedLevel,
   selectedPrice,
@@ -36,10 +37,13 @@ export default function Filters({
           )}
         </li>
         <li className={css.filterItem}>
-          <PriceSwitcher
-            selectedPrice={selectedPrice}
-            onPriceSelect={onPriceSelect}
-          />
+          {allPrices.length > 0 && (
+            <PriceSwitcher
+              allPrices={allPrices}
+              selectedPrice={selectedPrice}
+              onPriceSelect={onPriceSelect}
+            />
+          )}
         </li>
       </ul>
     </div>
