@@ -105,11 +105,8 @@ export default function TeachersPage() {
       <div className={css.teachersContainer}>
         <Filters
           allLanguages={allLanguages}
-          // setAllLanguages={setAllLanguages}
           allLevels={allLevels}
-          // setAllLevels={setAllLevels}
           allPrices={allPrices}
-          // setAllPrices={setAllPrices}
           selectedLanguage={selectedLanguage}
           onLanguageSelect={changeLanguage}
           selectedLevel={selectedLevel}
@@ -129,13 +126,6 @@ export default function TeachersPage() {
                 ? visibleTeachers // Show filtered teachers
                 : teachers // Show all loaded teachers if no filters applied
             }
-            // teachers={
-            //   selectedLanguage !== "" && visibleTeachers.length === 0
-            //     ? []
-            //     : selectedLanguage !== ""
-            //     ? visibleTeachers
-            //     : teachers
-            // }
           />
         )}
         {hasMore && !loading && <LoadMoreBtn onClick={loadMoreTeachers} />}
