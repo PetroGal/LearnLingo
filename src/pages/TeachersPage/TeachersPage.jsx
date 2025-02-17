@@ -39,19 +39,27 @@ export default function TeachersPage() {
   }, [])
 
   useEffect(() => {
-    const eachTeacherLanguages = [
-      ...new Set(teachers.flatMap((teacher) => teacher.languages)),
-    ]
-    const eachTeacherLevels = [
-      ...new Set(teachers.flatMap((teacher) => teacher.levels)),
-    ]
-    const eachTeacherPrices = [
-      ...new Set(teachers.map((teacher) => Number(teacher.price_per_hour))),
-    ]
-    console.log(eachTeacherLanguages)
-    console.log(eachTeacherLevels)
-    console.log(eachTeacherPrices)
-  })
+    if (teachers.length > 0) {
+      const eachTeacherLanguages = [
+        ...new Set(teachers.flatMap((teacher) => teacher.languages)),
+      ]
+      const eachTeacherLevels = [
+        ...new Set(teachers.flatMap((teacher) => teacher.levels)),
+      ]
+      const eachTeacherPrices = [
+        ...new Set(teachers.map((teacher) => Number(teacher.price_per_hour))),
+      ]
+
+      // ✅ Set state so Filters receive the data
+      setAllLanguages(eachTeacherLanguages)
+      setAllLevels(eachTeacherLevels)
+      setAllPrices(eachTeacherPrices.sort((a, b) => a - b))
+
+      console.log(eachTeacherLanguages)
+      console.log(eachTeacherLevels)
+      console.log(eachTeacherPrices)
+    }
+  }, [teachers])
 
   const visibleTeachers = teachers.filter(
     (teacher) =>
@@ -96,6 +104,12 @@ export default function TeachersPage() {
     <div className={css.teachersSection}>
       <div className={css.teachersContainer}>
         <Filters
+          allLanguages={allLanguages}
+          // setAllLanguages={setAllLanguages}
+          allLevels={allLevels}
+          // setAllLevels={setAllLevels}
+          allPrices={allPrices}
+          // setAllPrices={setAllPrices}
           selectedLanguage={selectedLanguage}
           onLanguageSelect={changeLanguage}
           selectedLevel={selectedLevel}

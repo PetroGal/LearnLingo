@@ -5,6 +5,7 @@ import PriceSwitcher from "../PriceSwitcher/PriceSwitcher.jsx"
 import css from "./Filters.module.css"
 
 export default function Filters({
+  allLanguages,
   selectedLanguage,
   selectedLevel,
   selectedPrice,
@@ -16,10 +17,13 @@ export default function Filters({
     <div>
       <ul className={css.filtersList}>
         <li className={css.filterItem}>
-          <LangSwitcher
-            selectLanguage={selectedLanguage}
-            onLanguageSelect={onLanguageSelect}
-          />
+          {allLanguages.length > 0 && (
+            <LangSwitcher
+              allLanguages={allLanguages}
+              selectLanguage={selectedLanguage}
+              onLanguageSelect={onLanguageSelect}
+            />
+          )}
         </li>
         <li className={css.filterItem}>
           <LevelSwitcher
