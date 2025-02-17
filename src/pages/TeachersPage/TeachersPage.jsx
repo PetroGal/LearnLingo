@@ -12,6 +12,9 @@ export default function TeachersPage() {
   const [lastKey, setLastKey] = useState(null)
   const [hasMore, setHasMore] = useState(true)
   // ✅ Lifted filter state
+  const [allLanguages, setAllLanguages] = useState([])
+  const [allLevels, setAllLevels] = useState([])
+  const [allPrices, setAllPrices] = useState([])
   const [selectedLanguage, setSelectedLanguage] = useState("")
   const [selectedLevel, setSelectedLevel] = useState("")
   const [selectedPrice, setSelectedPrice] = useState("")
@@ -35,16 +38,27 @@ export default function TeachersPage() {
     getTeachers()
   }, [])
 
-  // const visibleTeachers = teachers.filter((teacher) =>
-  //   teacher.languages.includes(selectedLanguage)
-  // )
+  useEffect(() => {
+    const eachTeacherLanguages = [
+      ...new Set(teachers.flatMap((teacher) => teacher.languages)),
+    ]
+    const eachTeacherLevels = [
+      ...new Set(teachers.flatMap((teacher) => teacher.levels)),
+    ]
+    const eachTeacherPrices = [
+      ...new Set(teachers.map((teacher) => Number(teacher.price_per_hour))),
+    ]
+    console.log(eachTeacherLanguages)
+    console.log(eachTeacherLevels)
+    console.log(eachTeacherPrices)
+  })
 
   const visibleTeachers = teachers.filter(
     (teacher) =>
       (selectedLanguage === "" ||
         teacher.languages.includes(selectedLanguage)) &&
       (selectedLevel === "" || teacher.levels.includes(selectedLevel)) &&
-      (selectedPrice === "" || teacher.prices.includes(selectedPrice))
+      (selectedPrice === "" || teacher.price_per_hour === Number(selectedPrice))
   )
   const changeLanguage = (newLanguage) => {
     setSelectedLanguage(newLanguage)
