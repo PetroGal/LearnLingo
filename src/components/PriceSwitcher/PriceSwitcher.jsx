@@ -9,7 +9,6 @@ export default function PriceSwitcher({
     onPriceSelect(event.target.value)
   }
 
-  console.log("Price in PriceSwitcher: ", allPrices)
   return (
     <div className={css.filterItemsWrapper}>
       <label htmlFor='price'>Price</label>

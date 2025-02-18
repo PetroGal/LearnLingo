@@ -8,7 +8,7 @@ export default function LangSwitcher({
   const handleChange = (event) => {
     onLanguageSelect(event.target.value)
   }
-  console.log("Languages in LangSwitcher:", allLanguages)
+
   return (
     <div className={css.filterItemsWrapper}>
       <label htmlFor='language'>Languages</label>

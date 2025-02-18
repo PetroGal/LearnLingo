@@ -9,7 +9,6 @@ export default function LevelSwitcher({
     onLevelSelect(event.target.value)
   }
 
-  console.log("Levels in LevelSwitcher: ", allLevels)
   return (
     <div className={css.filterItemsWrapper}>
       <label htmlFor='level'>Level of knowledge</label>
