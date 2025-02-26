@@ -9,15 +9,27 @@ import Modal from "../Modal/Modal.jsx"
 
 export default function App() {
   const [isModalOpen, setIsModalOpen] = useState(false)
+  const [activeForm, setActiveForm] = useState(null)
+
+  const handleModal = () => {
+    setIsModalOpen(false)
+  }
 
   return (
     <div>
-      <Header setIsModalOpen={setIsModalOpen} />
+      <Header setIsModalOpen={setIsModalOpen} setActiveForm={setActiveForm} />
       <Routes>
         <Route path='/' element={<HomePage />}></Route>
         <Route path='/teachers' element={<TeachersPage />}></Route>
       </Routes>
-      <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
+      <Modal isOpen={isModalOpen} onClose={handleModal}>
+        {activeForm === "login" && (
+          <LoginForm onClose={() => setIsModalOpen(false)} />
+        )}
+        {activeForm === "register" && (
+          <RegisterForm onClose={() => setIsModalOpen(false)} />
+        )}
+      </Modal>
     </div>
   )
 }
