@@ -15,6 +15,10 @@ export default function App() {
     setIsModalOpen(false)
   }
 
+  const handleLogin = () => {
+    setActiveForm("login")
+  }
+
   return (
     <div>
       <Header setIsModalOpen={setIsModalOpen} setActiveForm={setActiveForm} />
