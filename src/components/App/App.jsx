@@ -6,6 +6,8 @@ import Header from "../Header/Header.jsx"
 import HomePage from "../../pages/HomePage/HomePage.jsx"
 import TeachersPage from "../../pages/TeachersPage/TeachersPage.jsx"
 import Modal from "../Modal/Modal.jsx"
+import LoginForm from "../LoginForm/LoginForm.jsx"
+import RegisterForm from "../RegisterForm/RegisterForm.jsx"
 
 export default function App() {
   const [isModalOpen, setIsModalOpen] = useState(false)

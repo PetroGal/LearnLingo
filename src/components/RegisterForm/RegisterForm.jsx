@@ -1,15 +1,43 @@
+import { useForm } from "react-hook-form"
+
 export default function RegisterForm({ onClose }) {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm()
+
+  const onSubmit = (data) => {
+    console.log("Registering User:", data)
+  }
+
   return (
     <div className='auth-form'>
-      <button className='close-btn' onClick={onClose}>
-        ✖
-      </button>
       <h2>Register</h2>
-      <form>
-        <input type='text' placeholder='Name' required />
-        <input type='email' placeholder='Email' required />
-        <input type='password' placeholder='Password' required />
-        <button type='submit'>Sign Up</button>
+      <form onSubmit={handleSubmit(onSubmit)}>
+        {/* Email Field */}
+        <label>Email:</label>
+        <input
+          type='email'
+          {...register("email", { required: "Email is required" })}
+        />
+        {errors.email && <p className='error'>{errors.email.message}</p>}
+
+        {/* Password Field */}
+        <label>Password:</label>
+        <input
+          type='password'
+          {...register("password", { required: "Password is required" })}
+        />
+        {errors.password && <p className='error'>{errors.password.message}</p>}
+
+        {/* Close Button */}
+        <button type='button' onClick={onClose}>
+          Cancel
+        </button>
+
+        {/* Submit Button */}
+        <button type='submit'>Register</button>
       </form>
     </div>
   )
