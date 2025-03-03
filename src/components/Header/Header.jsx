@@ -3,6 +3,15 @@ import { NavLink } from "react-router-dom"
 import css from "./Header.module.css"
 
 export default function Header({ setIsModalOpen, setActiveForm }) {
+  const handleLogin = () => {
+    setActiveForm("login")
+    setIsModalOpen(true)
+  }
+
+  const handleRegister = () => {
+    setActiveForm("register")
+    setIsModalOpen(true)
+  }
   return (
     <header className={css.header}>
       <div className={css.headerContainer}>
@@ -27,10 +36,7 @@ export default function Header({ setIsModalOpen, setActiveForm }) {
                 <button
                   type='button'
                   className={css.loginBtn}
-                  onClick={() => {
-                    setActiveForm("login") // Set Login form
-                    setIsModalOpen(true) // Open modal
-                  }}
+                  onClick={handleLogin}
                 >
                   <svg className={css.loginIcon} width='20px' height='20px'>
                     <use href='/icons.svg#icon-logIn_opt'></use>
@@ -40,10 +46,7 @@ export default function Header({ setIsModalOpen, setActiveForm }) {
                 <button
                   type='button'
                   className={css.RegistrationBtn}
-                  onClick={() => {
-                    setActiveForm("register") // Set Register form
-                    setIsModalOpen(true) // Open modal
-                  }}
+                  onClick={handleRegister}
                 >
                   Registration
                 </button>
