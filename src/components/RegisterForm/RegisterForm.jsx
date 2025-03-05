@@ -1,4 +1,5 @@
 import { useForm } from "react-hook-form"
+import css from "./RegisterForm.module.css"
 
 export default function RegisterForm({ onClose }) {
   const {
@@ -13,41 +14,19 @@ export default function RegisterForm({ onClose }) {
 
   return (
     <div>
-      <button></button>
-      <h2></h2>
-      <p></p>
+      <button type='button' className={css.modalOpenBtn}>
+        <svg className={css.closeIcon} width='32px' height='32px'>
+          <use href='/icons.svg#icon-closeNewOpt'></use>
+        </svg>
+      </button>
+      <h2 className={css.RegistrationTitle}>Registration</h2>
+      <p>
+        Thank you for your interest in our platform! In order to register, we
+        need some information. Please provide us with the following information
+      </p>
       <input type='text' />
       <input type='email' />
       <input type='password' />
     </div>
-
-    // <div className='auth-form'>
-    //   <h2>Register</h2>
-    //   <form onSubmit={handleSubmit(onSubmit)}>
-    //     {/* Email Field */}
-    //     <label>Email:</label>
-    //     <input
-    //       type='email'
-    //       {...register("email", { required: "Email is required" })}
-    //     />
-    //     {errors.email && <p className='error'>{errors.email.message}</p>}
-
-    //     {/* Password Field */}
-    //     <label>Password:</label>
-    //     <input
-    //       type='password'
-    //       {...register("password", { required: "Password is required" })}
-    //     />
-    //     {errors.password && <p className='error'>{errors.password.message}</p>}
-
-    //     {/* Close Button */}
-    //     <button type='button' onClick={onClose}>
-    //       Cancel
-    //     </button>
-
-    //     {/* Submit Button */}
-    //     <button type='submit'>Register</button>
-    //   </form>
-    // </div>
   )
 }
