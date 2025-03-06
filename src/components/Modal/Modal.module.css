@@ -13,9 +13,10 @@
 
 .modalContent {
   width: 566px;
-  min-height: 506px;
+  height: 506px;
   padding: 64px;
   border-radius: 30px;
-  background-color: #ffffff;
-  transition: height 0.2s ease-in-out; /* Smooth height change */
+  /* background-color: #ffffff; */
+  background-color: lightblue;
+  transition: height 0.2s ease-in-out;
 }

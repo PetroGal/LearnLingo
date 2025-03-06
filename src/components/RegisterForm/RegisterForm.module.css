@@ -1,13 +1,53 @@
-.RegistrationTitle {
+.registerContainer {
+  /* position: fixed; */
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  /* background: rgba(0, 0, 0, 0.5); */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* z-index: 1000; */
+}
+
+.registerContent {
+  width: 566px;
+  height: 600px;
+  padding: 64px;
+  border-radius: 30px;
+  background-color: #ffffff;
+  position: absolute;
+}
+
+.registerTitle {
   /* font-family: "Roboto", sans-serif; */
   font-weight: 500;
   font-size: 40px;
   line-height: 1.2;
   letter-spacing: -0.02em;
   color: #121417;
+  margin-bottom: 20px;
 }
 
-.modalOpenBtn {
+.registerText {
+  margin-bottom: 40px;
+}
+
+.registerForm {
+  display: flex;
+}
+
+.registerInputWrap {
+  display: flex;
+}
+
+.registerInput {
+  display: flex;
+  flex-direction: column;
+}
+
+.modalCloseBtn {
   all: unset;
   border: none;
 }
@@ -16,4 +56,7 @@
   fill: transparent;
   stroke: #121417;
   stroke-width: 0px;
+  position: absolute;
+  top: 20px;
+  right: 20px;
 }
