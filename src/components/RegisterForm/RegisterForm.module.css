@@ -8,6 +8,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  background: #fff;
   /* z-index: 1000; */
 }
 
@@ -36,15 +37,21 @@
 
 .registerForm {
   display: flex;
+  flex-direction: column;
 }
 
 .registerInputWrap {
   display: flex;
+  flex-direction: column;
+  gap: 18px;
 }
 
 .registerInput {
-  display: flex;
-  flex-direction: column;
+  border: 1px solid rgba(18, 20, 23, 0.1);
+  border-radius: 12px;
+  padding: 16px 18px;
+  width: 438px;
+  height: 54px;
 }
 
 .modalCloseBtn {
@@ -59,4 +66,35 @@
   position: absolute;
   top: 20px;
   right: 20px;
+}
+
+.registerInput::placeholder {
+  font-family: "Roboto", sans-serif;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 1.375;
+  color: #121417;
+}
+
+.registerInput:last-child {
+  margin-bottom: 40px;
+}
+
+.registerButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: row;
+  gap: 0px;
+  border-radius: 12px;
+  padding: 16px 210px;
+  width: 438px;
+  height: 60px;
+  background: #f4c550;
+  border: none;
+  font-family: "Roboto", sans-serif;
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 1.55556;
+  color: #121417;
 }
