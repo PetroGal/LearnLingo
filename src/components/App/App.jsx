@@ -11,7 +11,7 @@ import RegisterForm from "../RegisterForm/RegisterForm.jsx"
 
 export default function App() {
   const [isModalOpen, setIsModalOpen] = useState(true)
-  const [activeForm, setActiveForm] = useState("register")
+  const [activeForm, setActiveForm] = useState("login")
 
   const handleModal = () => {
     setIsModalOpen(false)

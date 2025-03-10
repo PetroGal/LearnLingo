@@ -1,0 +1,100 @@
+.loginContainer {
+  /* position: fixed; */
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  /* background: rgba(0, 0, 0, 0.5); */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #fff;
+  /* z-index: 1000; */
+}
+
+.loginContent {
+  width: 566px;
+  height: 505px;
+  padding: 64px;
+  border-radius: 30px;
+  background-color: #ffffff;
+  position: absolute;
+}
+
+.loginTitle {
+  /* font-family: "Roboto", sans-serif; */
+  font-weight: 500;
+  font-size: 40px;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+  color: #121417;
+  margin-bottom: 20px;
+}
+
+.loginText {
+  margin-bottom: 40px;
+}
+
+.loginForm {
+  display: flex;
+  flex-direction: column;
+}
+
+.loginInputWrap {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.loginInput {
+  border: 1px solid rgba(18, 20, 23, 0.1);
+  border-radius: 12px;
+  padding: 16px 18px;
+  width: 438px;
+  height: 54px;
+}
+
+.modalCloseBtn {
+  all: unset;
+  border: none;
+}
+
+.closeIcon {
+  fill: transparent;
+  stroke: #121417;
+  stroke-width: 0px;
+  position: absolute;
+  top: 20px;
+  right: 20px;
+}
+
+.loginInput::placeholder {
+  font-family: "Roboto", sans-serif;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 1.375;
+  color: #121417;
+}
+
+.loginInput:last-child {
+  margin-bottom: 40px;
+}
+
+.loginButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: row;
+  gap: 0px;
+  border-radius: 12px;
+  padding: 16px;
+  width: 438px;
+  height: 60px;
+  background: #f4c550;
+  border: none;
+  font-family: "Roboto", sans-serif;
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 1.55556;
+  color: #121417;
+}
