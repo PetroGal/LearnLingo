@@ -15,7 +15,7 @@ export default function LoginForm({ onClose }) {
   return (
     <div className={css.loginContainer}>
       <div className={css.loginContent}>
-        <button type='button' className={css.modalCloseBtn}>
+        <button type='button' className={css.modalCloseBtn} onClick={onClose}>
           <svg className={css.closeIcon} width='32px' height='32px'>
             <use href='/icons.svg#icon-closeNewOpt'></use>
           </svg>
@@ -43,7 +43,7 @@ export default function LoginForm({ onClose }) {
             />
             {errors.password && <p>{errors.password.message}</p>}
           </div>
-          <button type='submit' className={css.loginButton} onClick={onClose}>
+          <button type='submit' className={css.loginButton}>
             Log in
           </button>
         </form>

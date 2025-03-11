@@ -16,7 +16,6 @@
   height: 506px;
   padding: 64px;
   border-radius: 30px;
-  /* background-color: #ffffff; */
-  background-color: lightblue;
+  background-color: #fff;
   transition: height 0.2s ease-in-out;
 }

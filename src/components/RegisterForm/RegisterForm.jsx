@@ -15,7 +15,7 @@ export default function RegisterForm({ onClose }) {
   return (
     <div className={css.registerContainer}>
       <div className={css.registerContent}>
-        <button type='button' className={css.modalCloseBtn}>
+        <button type='button' className={css.modalCloseBtn} onClick={onClose}>
           <svg className={css.closeIcon} width='32px' height='32px'>
             <use href='/icons.svg#icon-closeNewOpt'></use>
           </svg>
@@ -50,11 +50,7 @@ export default function RegisterForm({ onClose }) {
             />
             {errors.password && <p>{errors.password.message}</p>}
           </div>
-          <button
-            type='submit'
-            className={css.registerButton}
-            onClick={onClose}
-          >
+          <button type='submit' className={css.registerButton}>
             Sign Up
           </button>
         </form>

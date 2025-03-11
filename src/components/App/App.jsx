@@ -10,7 +10,7 @@ import LoginForm from "../LoginForm/LoginForm.jsx"
 import RegisterForm from "../RegisterForm/RegisterForm.jsx"
 
 export default function App() {
-  const [isModalOpen, setIsModalOpen] = useState(true)
+  const [isModalOpen, setIsModalOpen] = useState(false)
   const [activeForm, setActiveForm] = useState(null)
 
   const handleModal = () => {
