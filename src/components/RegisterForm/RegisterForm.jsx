@@ -38,19 +38,23 @@ export default function RegisterForm({ onClose }) {
             <input
               type='text'
               className={css.registerInput}
-              {...register("name", { required: "Name is required" })}
+              {...register("email", { required: "Email is required" })}
               placeholder='Email'
             />
-            {errors.name && <p>{errors.name.message}</p>}
+            {errors.email && <p>{errors.email.message}</p>}
             <input
               type='text'
               className={css.registerInput}
-              {...register("name", { required: "Name is required" })}
+              {...register("password", { required: "Password is required" })}
               placeholder='Password'
             />
-            {errors.name && <p>{errors.name.message}</p>}
+            {errors.password && <p>{errors.password.message}</p>}
           </div>
-          <button type='submit' className={css.registerButton}>
+          <button
+            type='submit'
+            className={css.registerButton}
+            onClick={onClose}
+          >
             Sign Up
           </button>
         </form>

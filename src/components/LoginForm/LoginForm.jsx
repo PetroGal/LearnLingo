@@ -31,19 +31,19 @@ export default function LoginForm({ onClose }) {
             <input
               type='text'
               className={css.loginInput}
-              {...register("name", { required: "Name is required" })}
+              {...register("email", { required: "Email is required" })}
               placeholder='Email'
             />
-            {errors.name && <p>{errors.name.message}</p>}
+            {errors.email && <p>{errors.email.message}</p>}
             <input
               type='text'
               className={css.loginInput}
-              {...register("name", { required: "Name is required" })}
+              {...register("password", { required: "Password is required" })}
               placeholder='Password'
             />
-            {errors.name && <p>{errors.name.message}</p>}
+            {errors.password && <p>{errors.password.message}</p>}
           </div>
-          <button type='submit' className={css.loginButton}>
+          <button type='submit' className={css.loginButton} onClick={onClose}>
             Log in
           </button>
         </form>
