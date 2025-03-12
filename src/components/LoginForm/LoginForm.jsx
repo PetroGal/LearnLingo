@@ -25,7 +25,7 @@ export default function LoginForm({ onClose }) {
           Welcome back! Please enter your credentials to access your account and
           continue your search for an teacher.
         </p>
-        <form className={css.loginForm}>
+        <form className={css.loginForm} onSubmit={handleSubmit(onSubmit)}>
           <div className={css.loginInputWrap}>
             {errors.name && <p>{errors.name.message}</p>}
             <input
@@ -43,7 +43,11 @@ export default function LoginForm({ onClose }) {
             />
             {errors.password && <p>{errors.password.message}</p>}
           </div>
-          <button type='submit' className={css.loginButton}>
+          <button
+            type='submit'
+            className={css.loginButton}
+            onSubmit={handleSubmit(onSubmit)}
+          >
             Log in
           </button>
         </form>

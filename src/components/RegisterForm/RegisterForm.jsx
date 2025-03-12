@@ -26,7 +26,7 @@ export default function RegisterForm({ onClose }) {
           need some information. Please provide us with the following
           information
         </p>
-        <form className={css.registerForm}>
+        <form className={css.registerForm} onSubmit={handleSubmit(onSubmit)}>
           <div className={css.registerInputWrap}>
             <input
               type='text'
