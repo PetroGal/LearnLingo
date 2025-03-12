@@ -10,6 +10,7 @@ import {
 const authContext = createContext()
 
 export default function AuthProvider({ children }) {
+  console.log("AuthProvider children:", children)
   const [user, setUser] = useState(null)
   const [loading, setLoading] = useState(true)
 

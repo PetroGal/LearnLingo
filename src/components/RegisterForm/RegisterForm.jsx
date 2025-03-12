@@ -1,15 +1,27 @@
 import { useForm } from "react-hook-form"
+import useAuth from "../../context/AuthContext.jsx"
 import css from "./RegisterForm.module.css"
+import { useState } from "react"
 
 export default function RegisterForm({ onClose }) {
+  const { register: registerUser } = useAuth()
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm()
+  const { register: firebaseRegister } = useAuth() // ✅ Get register function from AuthContext
+  const [errorMessage, setErrorMessage] = useState("") // ✅ State to store errors
 
-  const onSubmit = (data) => {
-    console.log("Registering User:", data)
+  const onSubmit = async (data) => {
+    setErrorMessage("")
+    try {
+      await firebaseRegister(data.email, data.password)
+      console.log("User Registered Successfully")
+      onClose()
+    } catch (error) {
+      setErrorMessage(error.message)
+    }
   }
 
   return (
@@ -26,6 +38,8 @@ export default function RegisterForm({ onClose }) {
           need some information. Please provide us with the following
           information
         </p>
+        {errorMessage && <p className={css.errorText}>{errorMessage}</p>}{" "}
+        {/* ✅ Show error */}
         <form className={css.registerForm} onSubmit={handleSubmit(onSubmit)}>
           <div className={css.registerInputWrap}>
             <input
@@ -35,17 +49,25 @@ export default function RegisterForm({ onClose }) {
               placeholder='Name'
             />
             {errors.name && <p>{errors.name.message}</p>}
+
             <input
-              type='text'
+              type='email'
               className={css.registerInput}
               {...register("email", { required: "Email is required" })}
               placeholder='Email'
             />
             {errors.email && <p>{errors.email.message}</p>}
+
             <input
-              type='text'
+              type='password'
               className={css.registerInput}
-              {...register("password", { required: "Password is required" })}
+              {...register("password", {
+                required: "Password is required",
+                minLength: {
+                  value: 6,
+                  message: "Password must be at least 6 characters long",
+                },
+              })}
               placeholder='Password'
             />
             {errors.password && <p>{errors.password.message}</p>}
