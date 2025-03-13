@@ -1,17 +1,17 @@
 import { useForm } from "react-hook-form"
-import useAuth from "../../context/AuthContext.jsx"
+import { useAuth } from "../../context/AuthContext.jsx"
 import css from "./RegisterForm.module.css"
 import { useState } from "react"
 
 export default function RegisterForm({ onClose }) {
-  const { register: registerUser } = useAuth()
+  const { register: firebaseRegister } = useAuth()
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm()
-  const { register: firebaseRegister } = useAuth() // ✅ Get register function from AuthContext
-  const [errorMessage, setErrorMessage] = useState("") // ✅ State to store errors
+
+  const [errorMessage, setErrorMessage] = useState("")
 
   const onSubmit = async (data) => {
     setErrorMessage("")
@@ -39,7 +39,6 @@ export default function RegisterForm({ onClose }) {
           information
         </p>
         {errorMessage && <p className={css.errorText}>{errorMessage}</p>}{" "}
-        {/* ✅ Show error */}
         <form className={css.registerForm} onSubmit={handleSubmit(onSubmit)}>
           <div className={css.registerInputWrap}>
             <input
