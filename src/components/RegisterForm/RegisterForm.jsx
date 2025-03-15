@@ -16,7 +16,7 @@ export default function RegisterForm({ onClose }) {
   const onSubmit = async (data) => {
     setErrorMessage("")
     try {
-      await firebaseRegister(data.email, data.password)
+      await firebaseRegister(data.email, data.password, data.name)
       console.log("User Registered Successfully")
       onClose()
     } catch (error) {
