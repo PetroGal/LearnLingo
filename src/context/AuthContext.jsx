@@ -25,17 +25,31 @@ export default function AuthProvider({ children }) {
   }, [])
 
   const register = async (email, password, name) => {
-    const userCredential = await createUserWithEmailAndPassword(
-      auth,
-      email,
-      password
-    )
-    const user = userCredential.user
+    try {
+      console.log("🔥 Attempting to register user:", email)
 
-    // ✅ Store additional user data in Firestore
-    await setDoc(doc(db, "users", user.uid), { name, email })
+      const userCredential = await createUserWithEmailAndPassword(
+        auth,
+        email,
+        password
+      )
+      const user = userCredential.user
 
-    return userCredential
+      console.log("✅ User created:", user.uid)
+
+      // ✅ Store additional user data in Firestore
+      await setDoc(doc(db, "users", user.uid), { name, email })
+      console.log("✅ User data saved in Firestore:", {
+        uid: user.uid,
+        name,
+        email,
+      })
+
+      return userCredential
+    } catch (error) {
+      console.error("❌ Registration failed:", error.message)
+      throw error // Re-throw to show errors in the UI
+    }
   }
 
   const login = (email, password) => {

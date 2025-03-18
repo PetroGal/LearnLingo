@@ -1,41 +1,24 @@
 import { useForm } from "react-hook-form"
-import { useAuth } from "../../context/AuthContext.jsx"
+import { useAuth } from "../../context/AuthContext.jsx" // ✅ Import Auth Context
 import css from "./RegisterForm.module.css"
 import { useState } from "react"
 
 export default function RegisterForm({ onClose }) {
-  const { register: firebaseRegister } = useAuth()
   const {
     register,
     handleSubmit,
     formState: { errors },
-    reset,
-  } = useForm({
-    defaultValues: {
-      name: "",
-      email: "",
-      password: "",
-    },
-  })
-
-  const [errorMessage, setErrorMessage] = useState("")
+  } = useForm()
+  const { register: firebaseRegister } = useAuth() // ✅ Get register function from AuthContext
+  const [errorMessage, setErrorMessage] = useState("") // ✅ State to store errors
 
   const onSubmit = async (data) => {
     setErrorMessage("")
     try {
-      console.log("🔥 Registering user:", data)
-
-      await firebaseRegister(data.email, data.password, data.name)
-
-      console.log("✅ User registered successfully!")
-
-      console.log("🔄 Resetting form...", reset) // Check if reset function exists
-      reset()
-      console.log("✅ Form reset complete!")
-
+      await firebaseRegister(data.email, data.password)
+      console.log("User Registered Successfully")
       onClose()
     } catch (error) {
-      console.error("❌ Registration error:", error.message)
       setErrorMessage(error.message)
     }
   }
@@ -50,11 +33,10 @@ export default function RegisterForm({ onClose }) {
         </button>
         <h2 className={css.registerTitle}>Registration</h2>
         <p className={css.registerText}>
-          Thank you for your interest in our platform! In order to register, we
-          need some information. Please provide us with the following
-          information
+          Please provide your information to register.
         </p>
         {errorMessage && <p className={css.errorText}>{errorMessage}</p>}{" "}
+        {/* ✅ Show error */}
         <form className={css.registerForm} onSubmit={handleSubmit(onSubmit)}>
           <div className={css.registerInputWrap}>
             <input
