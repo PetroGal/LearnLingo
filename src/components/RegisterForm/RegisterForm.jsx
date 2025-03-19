@@ -1,7 +1,7 @@
 import { useForm } from "react-hook-form"
 import { useAuth } from "../../context/AuthContext.jsx"
 import css from "./RegisterForm.module.css"
-import { useState } from "react"
+import { useState, useEffect } from "react"
 
 export default function RegisterForm({ onClose }) {
   const { register: firebaseRegister } = useAuth()
@@ -18,7 +18,19 @@ export default function RegisterForm({ onClose }) {
     },
   })
 
+  console.log("📢 useForm initialized! reset:", reset)
+
   const [errorMessage, setErrorMessage] = useState("")
+
+  // ✅ Debug reset function
+  useEffect(() => {
+    console.log("🔄 Resetting form with useEffect...")
+    reset({
+      name: "",
+      email: "",
+      password: "",
+    })
+  }, [reset])
 
   const onSubmit = async (data) => {
     setErrorMessage("")
@@ -28,9 +40,15 @@ export default function RegisterForm({ onClose }) {
       await firebaseRegister(data.email, data.password, data.name)
 
       console.log("✅ User registered successfully!")
+      // 🚀 Debug reset
+      console.log("🛠️ Reset function exists?", reset)
 
-      console.log("🔄 Resetting form...", reset) // Check if reset function exists
-      reset()
+      reset({
+        name: "",
+        email: "",
+        password: "",
+      }) // <-- Reset the form fields
+
       console.log("✅ Form reset complete!")
 
       onClose()
