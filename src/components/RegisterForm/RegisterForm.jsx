@@ -22,16 +22,6 @@ export default function RegisterForm({ onClose }) {
 
   const [errorMessage, setErrorMessage] = useState("")
 
-  // ✅ Debug reset function
-  useEffect(() => {
-    console.log("🔄 Resetting form with useEffect...")
-    reset({
-      name: "",
-      email: "",
-      password: "",
-    })
-  }, [reset])
-
   const onSubmit = async (data) => {
     setErrorMessage("")
     try {
@@ -40,18 +30,16 @@ export default function RegisterForm({ onClose }) {
       await firebaseRegister(data.email, data.password, data.name)
 
       console.log("✅ User registered successfully!")
-      // 🚀 Debug reset
-      console.log("🛠️ Reset function exists?", reset)
 
+      console.log("🛠️ Calling reset() function now...")
       reset({
         name: "",
         email: "",
         password: "",
-      }) // <-- Reset the form fields
-
-      console.log("✅ Form reset complete!")
-
-      onClose()
+      })
+      setTimeout(() => {
+        onClose()
+      }, 0) // Ensure reset happens before closing
     } catch (error) {
       console.error("❌ Registration error:", error.message)
       setErrorMessage(error.message)
