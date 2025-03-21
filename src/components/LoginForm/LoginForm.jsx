@@ -1,15 +1,29 @@
 import { useForm } from "react-hook-form"
+import { useAuth } from "../../context/AuthContext.jsx"
+import { useState } from "react"
 import css from "./LoginForm.module.css"
 
 export default function LoginForm({ onClose }) {
+  const { login } = useAuth()
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm()
 
-  const onSubmit = (data) => {
-    console.log("Registering User:", data)
+  const [errorMessage, setErrorMessage] = useState("")
+
+  const onSubmit = async (data) => {
+    setErrorMessage("")
+    try {
+      console.log("🔑 Logging in user:", data.email)
+      await login(data.email, data.password)
+      console.log("✅ Login successful!")
+      onClose() // Закриваємо модальне вікно після успішного логіну
+    } catch (error) {
+      console.error("❌ Login error:", error.message)
+      setErrorMessage(error.message)
+    }
   }
 
   return (
@@ -22,32 +36,30 @@ export default function LoginForm({ onClose }) {
         </button>
         <h2 className={css.loginTitle}>Log In</h2>
         <p className={css.loginText}>
-          Welcome back! Please enter your credentials to access your account and
-          continue your search for an teacher.
+          Welcome back! Please enter your credentials to access your account.
         </p>
+
+        {errorMessage && <p className={css.errorText}>{errorMessage}</p>}
+
         <form className={css.loginForm} onSubmit={handleSubmit(onSubmit)}>
           <div className={css.loginInputWrap}>
-            {errors.name && <p>{errors.name.message}</p>}
             <input
-              type='text'
+              type='email'
               className={css.loginInput}
               {...register("email", { required: "Email is required" })}
               placeholder='Email'
             />
             {errors.email && <p>{errors.email.message}</p>}
             <input
-              type='text'
+              type='password'
               className={css.loginInput}
               {...register("password", { required: "Password is required" })}
               placeholder='Password'
             />
             {errors.password && <p>{errors.password.message}</p>}
           </div>
-          <button
-            type='submit'
-            className={css.loginButton}
-            onSubmit={handleSubmit(onSubmit)}
-          >
+
+          <button type='submit' className={css.loginButton}>
             Log in
           </button>
         </form>
