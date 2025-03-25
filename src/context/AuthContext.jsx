@@ -1,4 +1,4 @@
-import { createContext, useContext, useEffect, useState } from "react"
+import { createContext, useContext, useState, useEffect } from "react"
 import { auth, db } from "../firebaseConfig.js"
 import {
   onAuthStateChanged,
@@ -6,13 +6,13 @@ import {
   createUserWithEmailAndPassword,
   signOut,
 } from "firebase/auth"
-import { doc, getDoc, setDoc } from "firebase/firestore"
+import { doc, setDoc, getDoc } from "firebase/firestore"
 
-const authContext = createContext()
+const AuthContext = createContext() // ✅ Виправлено з маленької на велику літеру
 
 export default function AuthProvider({ children }) {
   const [user, setUser] = useState(null)
-  const [userName, setUserName] = useState("") // Додаємо стан для імені
+  const [userName, setUserName] = useState("")
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
@@ -21,64 +21,78 @@ export default function AuthProvider({ children }) {
       setLoading(false)
 
       if (currentUser) {
-        const userDoc = await getDoc(doc(db, "users", currentUser.uid))
-        if (userDoc.exists()) {
-          setUserName(userDoc.data().name)
+        try {
+          const userDoc = await getDoc(doc(db, "users", currentUser.uid))
+          if (userDoc.exists()) {
+            setUserName(userDoc.data().name)
+          }
+        } catch (error) {
+          console.error("❌ Error fetching user data:", error.message)
         }
+      } else {
+        setUserName("") // Якщо користувача немає, очищаємо ім'я
       }
     })
+
     return () => unsubscribe()
   }, [])
 
-  const register = async (email, password, name) => {
+  const register = async (name, email, password) => {
     try {
       const userCredential = await createUserWithEmailAndPassword(
         auth,
         email,
         password
       )
-      const user = userCredential.user
+      const newUser = userCredential.user
+      setUser(newUser)
 
-      // Збереження додаткових даних в Firestore
-      await setDoc(doc(db, "users", user.uid), { name, email })
-      setUserName(name) // Оновлюємо ім'я користувача в стані
+      // ✅ Зберігаємо ім'я в Firestore
+      await setDoc(doc(db, "users", newUser.uid), { name })
 
-      return userCredential
+      setUserName(name) // Оновлюємо локальний стан
     } catch (error) {
-      console.error("❌ Registration failed:", error.message)
-      throw error
+      console.error("❌ Registration error:", error.message)
     }
   }
 
   const login = async (email, password) => {
-    const userCredential = await signInWithEmailAndPassword(
-      auth,
-      email,
-      password
-    )
-    const user = userCredential.user
+    try {
+      const userCredential = await signInWithEmailAndPassword(
+        auth,
+        email,
+        password
+      )
+      const loggedInUser = userCredential.user
+      setUser(loggedInUser)
 
-    // Отримання імені з Firestore
-    const userDoc = await getDoc(doc(db, "users", user.uid))
-    if (userDoc.exists()) {
-      setUserName(userDoc.data().name)
+      // ✅ Отримуємо ім'я з Firestore
+      const userDoc = await getDoc(doc(db, "users", loggedInUser.uid))
+      if (userDoc.exists()) {
+        setUserName(userDoc.data().name)
+      } else {
+        setUserName("") // Якщо немає запису, очищаємо ім'я
+      }
+    } catch (error) {
+      console.error("❌ Login error:", error.message)
     }
-
-    return userCredential
   }
 
   const logout = async () => {
     await signOut(auth)
-    setUserName("") // Очистити ім'я після виходу
+    setUser(null)
+    setUserName("")
   }
 
   return (
-    <authContext.Provider value={{ user, userName, register, login, logout }}>
-      {!loading && children}
-    </authContext.Provider>
+    <AuthContext.Provider
+      value={{ user, userName, register, login, logout, loading }}
+    >
+      {children}
+    </AuthContext.Provider>
   )
 }
 
 export function useAuth() {
-  return useContext(authContext)
+  return useContext(AuthContext)
 }
