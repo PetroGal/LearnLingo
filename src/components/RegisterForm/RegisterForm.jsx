@@ -27,7 +27,8 @@ export default function RegisterForm({ onClose }) {
     try {
       console.log("🔥 Registering user:", data)
 
-      await firebaseRegister(data.email, data.password, data.name)
+      // ✅ Fix: Pass parameters in the correct order (name, email, password)
+      await firebaseRegister(data.name, data.email, data.password)
 
       console.log("✅ User registered successfully!")
 
